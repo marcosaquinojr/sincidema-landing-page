@@ -1,0 +1,2150 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SINCIDEMA — Sindicato dos Cirurgi&otilde;es-Dentistas do Maranh&atilde;o</title>
+<meta name="description" content="SINCIDEMA — Sindicato dos Cirurgiões-Dentistas do Estado do Maranhão. Desde 1989 representando e fortalecendo a odontologia maranhense.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ========================================
+   RESET & VARIABLES
+   ======================================== */
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --white: #FFFFFF;
+  --off-white: #F5F5F5;
+  --red-700: #B91C1C;
+  --red-600: #DC2626;
+  --red-500: #EF4444;
+  --red-100: #FEE2E2;
+  --red-50: #FEF2F2;
+  --dark-900: #0F0F0F;
+  --dark-800: #1A1A1A;
+  --dark-700: #2A2A2A;
+  --dark-600: #333333;
+  --dark-500: #444444;
+  --gray-900: #111827;
+  --gray-700: #374151;
+  --gray-500: #6B7280;
+  --gray-400: #9CA3AF;
+  --gray-300: #D1D5DB;
+  --gray-200: #E5E7EB;
+  --gray-100: #F3F4F6;
+  --border: #E5E7EB;
+  --ease: cubic-bezier(0.25, 0.1, 0.25, 1);
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  background: var(--white);
+  color: var(--gray-900);
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+/* ========================================
+   LAYOUT
+   ======================================== */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+section {
+  padding: 100px 0;
+}
+
+/* ========================================
+   SECTION LABEL
+   ======================================== */
+.section-label {
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--red-600);
+  font-size: 13px;
+  margin-bottom: 12px;
+}
+
+/* ========================================
+   ANIMATIONS
+   ======================================== */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s var(--ease), transform 0.6s var(--ease);
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.hero-anim {
+  opacity: 0;
+}
+
+/* ========================================
+   NAVBAR
+   ======================================== */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background: transparent;
+  transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.navbar.is-scrolled {
+  background: rgba(15, 15, 15, 0.95);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+
+.navbar__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 72px;
+}
+
+.navbar__logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 700;
+  font-size: 20px;
+  color: var(--white);
+}
+
+.navbar__logo-icon {
+  width: 38px;
+  height: 38px;
+  background: var(--red-600);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 16px;
+  font-weight: 800;
+}
+
+.navbar__links {
+  display: flex;
+  gap: 32px;
+  list-style: none;
+}
+
+.navbar__link {
+  font-weight: 400;
+  font-size: 14px;
+  color: rgba(255,255,255,0.7);
+  transition: color 0.25s ease;
+  position: relative;
+}
+
+.navbar__link::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--red-600);
+  transition: width 0.3s ease;
+}
+
+.navbar__link:hover {
+  color: var(--white);
+}
+
+.navbar__link.is-active::after {
+  width: 100%;
+}
+
+.navbar__cta-btn {
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  background: var(--red-600);
+  color: white;
+  padding: 10px 24px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.1s ease;
+}
+
+.navbar__cta-btn:hover {
+  background: var(--red-700);
+}
+
+.navbar__mobile-toggle {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  position: relative;
+  z-index: 101;
+}
+
+.navbar__mobile-toggle span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: var(--white);
+  margin: 5px 0;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+/* ========================================
+   HERO
+   ======================================== */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  position: relative;
+  background: var(--dark-900);
+  overflow: hidden;
+  padding: 0;
+}
+
+.hero__bg-image {
+  position: absolute;
+  inset: 0;
+  background-image: url('https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=1920&q=80&auto=format&fit=crop');
+  background-size: cover;
+  background-position: center;
+  z-index: 0;
+}
+
+.hero__bg {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(100deg, rgba(15,15,15,0.92) 0%, rgba(15,15,15,0.85) 45%, rgba(15,15,15,0.6) 100%);
+  z-index: 1;
+}
+
+.hero__pattern {
+  position: absolute;
+  inset: 0;
+  opacity: 0.04;
+  background-image: repeating-linear-gradient(
+    90deg,
+    transparent,
+    transparent 80px,
+    rgba(255,255,255,0.5) 80px,
+    rgba(255,255,255,0.5) 81px
+  );
+  z-index: 1;
+}
+
+.hero__red-accent {
+  position: absolute;
+  top: -100px;
+  left: -100px;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(220,38,38,0.2) 0%, transparent 70%);
+  z-index: 1;
+}
+
+.hero__content {
+  position: relative;
+  z-index: 2;
+  max-width: 700px;
+}
+
+.hero__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(220, 38, 38, 0.15);
+  border: 1px solid rgba(220, 38, 38, 0.3);
+  border-radius: 100px;
+  padding: 8px 20px;
+  margin-bottom: 28px;
+  font-weight: 500;
+  font-size: 13px;
+  color: var(--red-500);
+}
+
+.hero__badge-dot {
+  width: 8px;
+  height: 8px;
+  background: var(--red-600);
+  border-radius: 50%;
+  animation: pulse-dot 2s ease-in-out infinite;
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+.hero__headline {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  font-size: clamp(42px, 5vw, 68px);
+  line-height: 1.08;
+  color: var(--white);
+  margin-bottom: 24px;
+}
+
+.hero__headline em {
+  font-style: normal;
+  color: var(--red-500);
+}
+
+.hero__subtitle {
+  font-weight: 300;
+  font-size: 18px;
+  color: rgba(255,255,255,0.55);
+  max-width: 520px;
+  line-height: 1.7;
+  margin-bottom: 40px;
+}
+
+.hero__actions {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 72px;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: 15px;
+  padding: 16px 36px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease;
+}
+
+.btn:active {
+  transform: scale(0.97);
+}
+
+.btn--primary {
+  background: var(--red-600);
+  color: white;
+  box-shadow: 0 4px 20px rgba(220, 38, 38, 0.35);
+}
+
+.btn--primary:hover {
+  background: var(--red-700);
+  box-shadow: 0 6px 28px rgba(220, 38, 38, 0.45);
+}
+
+.btn--outline {
+  background: transparent;
+  color: white;
+  border: 1px solid rgba(255,255,255,0.25);
+}
+
+.btn--outline:hover {
+  background: rgba(255,255,255,0.06);
+  border-color: rgba(255,255,255,0.4);
+}
+
+/* Hero Stats Row */
+.hero__stats-row {
+  display: flex;
+  gap: 40px;
+  padding-top: 40px;
+  border-top: 1px solid rgba(255,255,255,0.08);
+}
+
+.hero__stat {
+  text-align: left;
+}
+
+.hero__stat-number {
+  font-weight: 800;
+  font-size: 42px;
+  color: var(--white);
+  line-height: 1;
+  margin-bottom: 6px;
+}
+
+.hero__stat-number span {
+  color: var(--red-500);
+}
+
+.hero__stat-label {
+  font-weight: 400;
+  font-size: 13px;
+  letter-spacing: 0.02em;
+  color: rgba(255,255,255,0.4);
+}
+
+/* Hero Right — Feature cards column */
+.hero__grid {
+  display: grid;
+  grid-template-columns: 1fr 420px;
+  gap: 80px;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+}
+
+.hero__cards {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.hero__card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 16px;
+  padding: 24px;
+  backdrop-filter: blur(8px);
+  transition: transform 0.3s var(--ease), border-color 0.3s ease, background 0.3s ease;
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.hero__card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(220,38,38,0.3);
+  background: rgba(255,255,255,0.06);
+}
+
+.hero__card-icon {
+  width: 48px;
+  height: 48px;
+  min-width: 48px;
+  background: rgba(220, 38, 38, 0.12);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--red-500);
+}
+
+.hero__card-title {
+  font-weight: 600;
+  font-size: 15px;
+  color: var(--white);
+  margin-bottom: 4px;
+}
+
+.hero__card-desc {
+  font-size: 13px;
+  color: rgba(255,255,255,0.4);
+  line-height: 1.5;
+}
+
+/* ========================================
+   SOBRE — Company section
+   ======================================== */
+.sobre {
+  background: var(--white);
+  padding: 100px 0 60px;
+}
+
+.sobre__top {
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto 64px;
+}
+
+.sobre__org-name {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  font-size: clamp(28px, 3vw, 40px);
+  color: var(--dark-900);
+  margin-bottom: 20px;
+}
+
+.sobre__org-name span {
+  color: var(--red-600);
+}
+
+.sobre__intro {
+  font-size: 16px;
+  color: var(--gray-500);
+  line-height: 1.8;
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.sobre__features {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-bottom: 64px;
+}
+
+.sobre__feature {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  padding: 28px;
+  border-radius: 16px;
+  border: 1px solid var(--gray-200);
+  background: var(--white);
+  transition: transform 0.3s var(--ease), box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.sobre__feature:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.06);
+  border-color: var(--red-600);
+}
+
+.sobre__feature-icon {
+  width: 48px;
+  height: 48px;
+  min-width: 48px;
+  background: var(--red-50);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--red-600);
+}
+
+.sobre__feature-title {
+  font-weight: 600;
+  font-size: 16px;
+  color: var(--dark-900);
+  margin-bottom: 6px;
+}
+
+.sobre__feature-desc {
+  font-size: 14px;
+  color: var(--gray-500);
+  line-height: 1.6;
+}
+
+/* Sobre — offer cards (side by side) */
+.sobre__offers {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+.sobre__offer {
+  background: var(--off-white);
+  border-radius: 20px;
+  border: 1px solid var(--gray-200);
+  transition: transform 0.3s var(--ease), box-shadow 0.3s ease;
+  overflow: hidden;
+}
+
+.sobre__offer:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.06);
+}
+
+.sobre__offer-img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+}
+
+.sobre__offer-body {
+  padding: 28px 32px 32px;
+}
+
+.sobre__offer-badge {
+  display: inline-block;
+  background: var(--red-600);
+  color: white;
+  font-weight: 600;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 6px 14px;
+  border-radius: 6px;
+  margin-bottom: 16px;
+}
+
+.sobre__offer-title {
+  font-family: 'Playfair Display', serif;
+  font-weight: 600;
+  font-size: 22px;
+  color: var(--dark-900);
+  margin-bottom: 12px;
+}
+
+.sobre__offer-desc {
+  font-size: 14px;
+  color: var(--gray-500);
+  line-height: 1.7;
+}
+
+/* ========================================
+   EXPERIENCE / STATS — Dark section
+   ======================================== */
+.experiencia {
+  background: var(--dark-900);
+  padding: 100px 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.experiencia__bg-image {
+  position: absolute;
+  inset: 0;
+  background-image: url('https://images.unsplash.com/photo-1606811841689-23dfddce3e95?w=1920&q=80&auto=format&fit=crop');
+  background-size: cover;
+  background-position: center;
+  opacity: 0.12;
+}
+
+.experiencia__red-glow {
+  position: absolute;
+  bottom: -150px;
+  right: -150px;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(220,38,38,0.12) 0%, transparent 70%);
+}
+
+.experiencia__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+
+.experiencia__content {}
+
+.experiencia__label {
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 12px;
+  color: var(--red-500);
+  margin-bottom: 16px;
+}
+
+.experiencia__title {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  font-size: clamp(36px, 4vw, 56px);
+  color: var(--white);
+  line-height: 1.1;
+  margin-bottom: 20px;
+}
+
+.experiencia__title em {
+  font-style: normal;
+  color: var(--red-500);
+}
+
+.experiencia__text {
+  font-size: 16px;
+  color: rgba(255,255,255,0.5);
+  line-height: 1.8;
+  margin-bottom: 32px;
+  max-width: 480px;
+}
+
+.experiencia__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  font-size: 15px;
+  color: var(--red-500);
+  transition: gap 0.2s ease;
+}
+
+.experiencia__cta:hover {
+  gap: 14px;
+}
+
+/* Stats cards in dark section */
+.experiencia__stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.experiencia__stat-card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 20px;
+  padding: 32px 24px;
+  text-align: center;
+  transition: border-color 0.3s ease, background 0.3s ease;
+}
+
+.experiencia__stat-card:hover {
+  border-color: rgba(220,38,38,0.3);
+  background: rgba(255,255,255,0.06);
+}
+
+.experiencia__stat-card--highlight {
+  border-color: var(--red-600);
+  background: rgba(220, 38, 38, 0.08);
+}
+
+.experiencia__stat-value {
+  font-weight: 800;
+  font-size: 44px;
+  color: var(--white);
+  line-height: 1;
+  margin-bottom: 8px;
+}
+
+.experiencia__stat-value span {
+  color: var(--red-500);
+}
+
+.experiencia__stat-desc {
+  font-size: 13px;
+  color: rgba(255,255,255,0.4);
+  line-height: 1.5;
+}
+
+/* ========================================
+   SERVICOS
+   ======================================== */
+.servicos {
+  background: var(--off-white);
+}
+
+.servicos__header {
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto 56px;
+}
+
+.servicos__title {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  font-size: clamp(30px, 3.5vw, 44px);
+  color: var(--dark-900);
+  margin-bottom: 14px;
+}
+
+.servicos__subtitle {
+  font-size: 16px;
+  color: var(--gray-500);
+  line-height: 1.7;
+}
+
+.servicos__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.servicos__card {
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  border-radius: 16px;
+  padding: 32px 24px;
+  transition: transform 0.3s var(--ease), box-shadow 0.3s ease, border-color 0.3s ease;
+  cursor: default;
+}
+
+.servicos__card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.07);
+  border-color: var(--red-600);
+}
+
+.servicos__card-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.servicos__card-icon--red {
+  background: var(--red-50);
+  color: var(--red-600);
+}
+
+.servicos__card-icon--dark {
+  background: var(--gray-100);
+  color: var(--dark-900);
+}
+
+.servicos__card-title {
+  font-weight: 700;
+  font-size: 17px;
+  color: var(--dark-900);
+  margin-bottom: 10px;
+}
+
+.servicos__card-desc {
+  font-size: 14px;
+  color: var(--gray-500);
+  line-height: 1.7;
+}
+
+/* ========================================
+   PISO SALARIAL
+   ======================================== */
+.piso {
+  background: var(--white);
+}
+
+.piso__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: center;
+}
+
+.piso__title {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  font-size: clamp(30px, 3.5vw, 44px);
+  color: var(--dark-900);
+  margin-bottom: 16px;
+  line-height: 1.15;
+}
+
+.piso__text {
+  font-size: 16px;
+  color: var(--gray-500);
+  line-height: 1.8;
+  margin-bottom: 32px;
+}
+
+.piso__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  font-size: 15px;
+  color: var(--red-600);
+  transition: gap 0.2s ease;
+}
+
+.piso__cta:hover {
+  gap: 14px;
+}
+
+.piso__cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.piso__card {
+  background: var(--off-white);
+  border: 1px solid var(--gray-200);
+  border-radius: 16px;
+  padding: 28px;
+  text-align: center;
+  transition: border-color 0.3s ease, transform 0.3s var(--ease);
+}
+
+.piso__card:hover {
+  border-color: var(--red-600);
+  transform: translateY(-2px);
+}
+
+.piso__card--highlight {
+  border-color: var(--red-600);
+  background: var(--red-50);
+}
+
+.piso__card-label {
+  font-weight: 600;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gray-400);
+  margin-bottom: 10px;
+}
+
+.piso__card-value {
+  font-weight: 800;
+  font-size: 30px;
+  color: var(--dark-900);
+  margin-bottom: 4px;
+}
+
+.piso__card--highlight .piso__card-value {
+  color: var(--red-600);
+}
+
+.piso__card-detail {
+  font-size: 12px;
+  color: var(--gray-400);
+}
+
+/* ========================================
+   FILIE-SE
+   ======================================== */
+.filiese {
+  background: var(--off-white);
+}
+
+.filiese__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+
+.filiese__title {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  font-size: clamp(30px, 3.5vw, 44px);
+  color: var(--dark-900);
+  margin-bottom: 16px;
+  line-height: 1.15;
+}
+
+.filiese__text {
+  font-size: 16px;
+  color: var(--gray-500);
+  line-height: 1.8;
+  margin-bottom: 32px;
+}
+
+.filiese__benefits {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.filiese__benefit {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  font-size: 15px;
+  color: var(--gray-700);
+  line-height: 1.6;
+}
+
+.filiese__benefit-icon {
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  background: var(--red-600);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 700;
+  margin-top: 2px;
+}
+
+.filiese__form-card {
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  border-radius: 20px;
+  padding: 40px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.04);
+  overflow: hidden;
+}
+
+.filiese__form-img {
+  width: calc(100% + 80px);
+  height: 180px;
+  object-fit: cover;
+  margin: -40px -40px 28px -40px;
+}
+
+.filiese__form-title {
+  font-family: 'Playfair Display', serif;
+  font-weight: 600;
+  font-size: 24px;
+  color: var(--dark-900);
+  margin-bottom: 6px;
+}
+
+.filiese__form-subtitle {
+  font-size: 14px;
+  color: var(--gray-400);
+  margin-bottom: 28px;
+}
+
+.filiese__field {
+  margin-bottom: 16px;
+}
+
+.filiese__input,
+.filiese__select {
+  width: 100%;
+  background: var(--off-white);
+  border: 1px solid var(--gray-200);
+  border-radius: 10px;
+  padding: 14px 16px;
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  color: var(--gray-900);
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  -webkit-appearance: none;
+}
+
+.filiese__input::placeholder {
+  color: var(--gray-400);
+}
+
+.filiese__input:focus,
+.filiese__select:focus {
+  border-color: var(--red-600);
+  box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1);
+  background: var(--white);
+}
+
+.filiese__submit {
+  display: block;
+  width: 100%;
+  background: var(--red-600);
+  color: white;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: 15px;
+  padding: 16px 32px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease;
+  margin-top: 8px;
+  box-shadow: 0 4px 16px rgba(220, 38, 38, 0.2);
+}
+
+.filiese__submit:hover {
+  background: var(--red-700);
+  box-shadow: 0 6px 24px rgba(220, 38, 38, 0.3);
+}
+
+.filiese__submit:active {
+  transform: scale(0.98);
+}
+
+/* ========================================
+   CONTATO
+   ======================================== */
+.contato {
+  background: var(--white);
+}
+
+.contato__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 24px;
+}
+
+.contato__header {
+  grid-column: 1 / -1;
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.contato__title {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  font-size: clamp(30px, 3.5vw, 44px);
+  color: var(--dark-900);
+  margin-bottom: 10px;
+}
+
+.contato__subtitle {
+  font-size: 16px;
+  color: var(--gray-500);
+}
+
+.contato__card {
+  background: var(--off-white);
+  border: 1px solid var(--gray-200);
+  border-radius: 16px;
+  padding: 32px;
+  text-align: center;
+  transition: transform 0.3s var(--ease), box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.contato__card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.06);
+  border-color: var(--red-600);
+}
+
+.contato__card-icon {
+  width: 56px;
+  height: 56px;
+  background: var(--red-50);
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--red-600);
+  margin: 0 auto 20px;
+}
+
+.contato__card-title {
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--dark-900);
+  margin-bottom: 8px;
+}
+
+.contato__card-text {
+  font-size: 14px;
+  color: var(--gray-500);
+  line-height: 1.7;
+}
+
+.contato__card-link {
+  display: inline-block;
+  margin-top: 16px;
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--red-600);
+  transition: color 0.2s ease;
+}
+
+.contato__card-link:hover {
+  color: var(--red-700);
+}
+
+/* ========================================
+   FOOTER
+   ======================================== */
+.footer {
+  background: var(--dark-900);
+  padding: 48px 0 32px;
+}
+
+.footer__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 32px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  margin-bottom: 24px;
+}
+
+.footer__logo {
+  font-weight: 700;
+  font-size: 20px;
+  color: var(--white);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.footer__links {
+  display: flex;
+  gap: 32px;
+  list-style: none;
+}
+
+.footer__link {
+  font-weight: 400;
+  font-size: 14px;
+  color: rgba(255,255,255,0.4);
+  transition: color 0.2s ease;
+}
+
+.footer__link:hover {
+  color: var(--white);
+}
+
+.footer__bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.footer__copy {
+  font-size: 13px;
+  color: rgba(255,255,255,0.25);
+}
+
+.footer__address {
+  font-size: 13px;
+  color: rgba(255,255,255,0.25);
+  text-align: right;
+}
+
+/* ========================================
+   STICKY MOBILE CTA
+   ======================================== */
+.sticky-cta {
+  display: none;
+}
+
+/* ========================================
+   WHATSAPP FAB
+   ======================================== */
+.whatsapp-fab {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 99;
+  width: 56px;
+  height: 56px;
+  background: #25D366;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 16px rgba(37, 211, 102, 0.35);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  color: white;
+  font-size: 28px;
+}
+
+.whatsapp-fab:hover {
+  transform: scale(1.08);
+  box-shadow: 0 6px 24px rgba(37, 211, 102, 0.5);
+}
+
+/* ========================================
+   PREFERS REDUCED MOTION
+   ======================================== */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    transition-duration: 0ms !important;
+    animation-duration: 0ms !important;
+  }
+  .reveal { opacity: 1 !important; transform: none !important; }
+  .hero-anim { opacity: 1 !important; }
+}
+
+/* ========================================
+   TOUCH DEVICES
+   ======================================== */
+@media (any-pointer: coarse) {
+  .navbar__link, .footer__link, .contato__card-link, .piso__cta {
+    min-height: 48px;
+    display: inline-flex;
+    align-items: center;
+  }
+  .filiese__input, .filiese__select { min-height: 52px; font-size: 16px; }
+  .filiese__submit, .btn { min-height: 52px; }
+}
+
+/* ========================================
+   TABLET (max-width: 900px)
+   ======================================== */
+@media (max-width: 900px) {
+  section { padding: 80px 0; }
+
+  .hero__grid { grid-template-columns: 1fr; gap: 48px; }
+  .hero__cards { display: none; }
+
+  .sobre__features { grid-template-columns: 1fr; gap: 16px; }
+  .sobre__offers { grid-template-columns: 1fr; }
+
+  .experiencia__grid { grid-template-columns: 1fr; gap: 48px; }
+
+  .servicos__grid { grid-template-columns: 1fr 1fr; gap: 16px; }
+
+  .piso__grid { grid-template-columns: 1fr; gap: 48px; }
+
+  .filiese__grid { grid-template-columns: 1fr; gap: 48px; }
+
+  .contato__grid { grid-template-columns: 1fr; }
+
+  .navbar__links { display: none; }
+  .navbar__cta-btn { display: none; }
+  .navbar__mobile-toggle { display: block; }
+
+  .navbar__links.is-open {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: var(--dark-900);
+    padding: 96px 32px 32px;
+    gap: 0;
+    z-index: 99;
+    animation: slideDown 0.3s var(--ease-out);
+  }
+
+  @keyframes slideDown {
+    from { opacity: 0; transform: translateY(-16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .navbar__links.is-open .navbar__link {
+    color: rgba(255,255,255,0.8);
+    font-size: 20px;
+    font-weight: 400;
+    padding: 18px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    display: block;
+    width: 100%;
+  }
+
+  .navbar__links.is-open .navbar__link:last-child { border-bottom: none; }
+
+  .navbar__mobile-toggle.is-active span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+  }
+  .navbar__mobile-toggle.is-active span:nth-child(2) { opacity: 0; }
+  .navbar__mobile-toggle.is-active span:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -5px);
+  }
+
+  .footer__inner { flex-direction: column; gap: 24px; text-align: center; }
+  .footer__links { flex-wrap: wrap; justify-content: center; gap: 16px; }
+  .footer__bottom { flex-direction: column; gap: 8px; text-align: center; }
+  .footer__address { text-align: center; }
+}
+
+/* ========================================
+   MOBILE (max-width: 600px)
+   ======================================== */
+@media (max-width: 600px) {
+  .container { padding: 0 20px; }
+  section { padding: 56px 0; }
+  body { font-size: 15px; }
+  .section-label { font-size: 12px; margin-bottom: 10px; }
+
+  .navbar__inner { height: 64px; }
+  .navbar__logo { font-size: 18px; gap: 8px; }
+  .navbar__logo-icon { width: 32px; height: 32px; font-size: 14px; border-radius: 6px; }
+
+  .navbar__mobile-toggle {
+    width: 48px; height: 48px;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+  }
+
+  .hero { min-height: auto; padding: 96px 0 56px; }
+  .hero__badge { font-size: 12px; padding: 6px 16px; margin-bottom: 20px; }
+  .hero__headline { font-size: 34px; margin-bottom: 16px; }
+  .hero__subtitle { font-size: 15px; margin-bottom: 28px; }
+  .hero__actions { flex-direction: column; gap: 12px; margin-bottom: 48px; }
+  .btn { justify-content: center; width: 100%; padding: 16px 24px; border-radius: 12px; }
+
+  .hero__stats-row { flex-direction: row; gap: 24px; flex-wrap: wrap; }
+  .hero__stat-number { font-size: 28px; }
+  .hero__stat-label { font-size: 11px; }
+
+  .sobre__org-name { font-size: 24px; }
+  .sobre__intro { font-size: 15px; }
+  .sobre__feature { padding: 20px; }
+  .sobre__feature-title { font-size: 15px; }
+  .sobre__feature-desc { font-size: 13px; }
+  .sobre__offer { padding: 28px 24px; border-radius: 16px; }
+  .sobre__offer-title { font-size: 20px; }
+
+  .experiencia__title { font-size: 32px; }
+  .experiencia__stat-value { font-size: 36px; }
+  .experiencia__stats { gap: 12px; }
+  .experiencia__stat-card { padding: 24px 16px; border-radius: 16px; }
+
+  .servicos__grid { grid-template-columns: 1fr; gap: 12px; }
+  .servicos__title { font-size: 26px; }
+  .servicos__card {
+    padding: 24px 20px; border-radius: 12px;
+    display: flex; gap: 16px; align-items: flex-start;
+  }
+  .servicos__card-icon { width: 44px; height: 44px; min-width: 44px; font-size: 20px; margin-bottom: 0; }
+  .servicos__card-title { font-size: 16px; margin-bottom: 4px; }
+  .servicos__card-desc { font-size: 13px; }
+
+  .piso__title { font-size: 26px; }
+  .piso__cards { gap: 10px; }
+  .piso__card { padding: 20px 12px; border-radius: 12px; }
+  .piso__card-value { font-size: 24px; }
+
+  .filiese__title { font-size: 26px; }
+  .filiese__benefit { font-size: 14px; }
+  .filiese__form-card { padding: 24px 20px; border-radius: 16px; }
+  .filiese__form-img { width: calc(100% + 40px); margin: -24px -20px 20px -20px; height: 150px; }
+  .sobre__offer-img { height: 180px; }
+  .sobre__offer-body { padding: 20px; }
+  .filiese__input, .filiese__select { padding: 16px; font-size: 16px; border-radius: 12px; }
+  .filiese__submit { padding: 16px; font-size: 16px; border-radius: 12px; }
+
+  .contato__title { font-size: 26px; }
+  .contato__card {
+    padding: 24px 20px; border-radius: 12px;
+    display: flex; gap: 16px; align-items: flex-start; text-align: left;
+  }
+  .contato__card-icon { width: 48px; height: 48px; min-width: 48px; margin: 0; }
+
+  .whatsapp-fab { bottom: 88px; right: 16px; width: 52px; height: 52px; }
+
+  .sticky-cta {
+    display: flex;
+    position: fixed; bottom: 0; left: 0; right: 0;
+    z-index: 98;
+    background: var(--white);
+    border-top: 1px solid var(--gray-200);
+    padding: 12px 20px;
+    padding-bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+    box-shadow: 0 -4px 20px rgba(0,0,0,0.08);
+    gap: 12px;
+    align-items: center;
+    transform: translateY(100%);
+    transition: transform 0.3s var(--ease);
+  }
+
+  .sticky-cta.is-visible { transform: translateY(0); }
+
+  .sticky-cta__text {
+    flex: 1; font-size: 13px; color: var(--gray-700); line-height: 1.3;
+  }
+  .sticky-cta__text strong {
+    display: block; font-size: 15px; color: var(--dark-900); font-weight: 700;
+  }
+  .sticky-cta__btn {
+    flex-shrink: 0;
+    background: var(--red-600); color: white;
+    font-family: 'Inter', sans-serif; font-weight: 700; font-size: 14px;
+    padding: 14px 24px; border: none; border-radius: 10px;
+    cursor: pointer; white-space: nowrap; min-height: 48px;
+  }
+
+  body { padding-bottom: 72px; }
+
+  .servicos__card:hover, .contato__card:hover {
+    transform: none; box-shadow: none;
+  }
+}
+
+@media (max-width: 380px) {
+  .container { padding: 0 16px; }
+  .hero__headline { font-size: 28px; }
+  .hero__stat-number { font-size: 24px; }
+  .piso__cards { grid-template-columns: 1fr; }
+  .experiencia__stats { grid-template-columns: 1fr; }
+
+  .sobre__title, .servicos__title, .filiese__title,
+  .contato__title, .piso__title, .experiencia__title { font-size: 24px; }
+}
+
+@media (max-height: 500px) and (orientation: landscape) {
+  .hero { min-height: auto; padding: 80px 0 48px; }
+  .hero__stats-row { display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar hero-anim" id="navbar">
+  <div class="container">
+    <div class="navbar__inner">
+      <a href="#" class="navbar__logo">
+        <div class="navbar__logo-icon">S</div>
+        SINCIDEMA
+      </a>
+      <ul class="navbar__links" id="navLinks">
+        <li><a href="#sobre" class="navbar__link">Sobre</a></li>
+        <li><a href="#servicos" class="navbar__link">Servi&ccedil;os</a></li>
+        <li><a href="#piso" class="navbar__link">Piso Salarial</a></li>
+        <li><a href="#filiese" class="navbar__link">Filie-se</a></li>
+        <li><a href="#contato" class="navbar__link">Contato</a></li>
+      </ul>
+      <a href="#filiese" class="navbar__cta-btn">Filie-se agora</a>
+      <button class="navbar__mobile-toggle" id="mobileToggle" aria-label="Menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero__bg-image"></div>
+  <div class="hero__bg"></div>
+  <div class="hero__pattern"></div>
+  <div class="hero__red-accent"></div>
+  <div class="container">
+    <div class="hero__grid">
+      <div class="hero__content">
+        <div class="hero__badge hero-anim">
+          <span class="hero__badge-dot"></span>
+          Desde 1989 — S&atilde;o Lu&iacute;s, MA
+        </div>
+        <h1 class="hero__headline hero-anim">
+          Fortalecendo a <em>odontologia</em> maranhense
+        </h1>
+        <p class="hero__subtitle hero-anim">
+          O SINCIDEMA representa e defende os cirurgi&otilde;es-dentistas do Maranh&atilde;o,
+          lutando por melhores condi&ccedil;&otilde;es de trabalho, qualifica&ccedil;&atilde;o profissional
+          e valoriza&ccedil;&atilde;o da categoria.
+        </p>
+        <div class="hero__actions hero-anim">
+          <a href="#filiese" class="btn btn--primary">Quero me filiar</a>
+          <a href="#servicos" class="btn btn--outline">Conhecer servi&ccedil;os</a>
+        </div>
+        <div class="hero__stats-row hero-anim">
+          <div class="hero__stat">
+            <div class="hero__stat-number">35<span>+</span></div>
+            <div class="hero__stat-label">Anos de atua&ccedil;&atilde;o</div>
+          </div>
+          <div class="hero__stat">
+            <div class="hero__stat-number">5.700<span>+</span></div>
+            <div class="hero__stat-label">CDs no Maranh&atilde;o</div>
+          </div>
+          <div class="hero__stat">
+            <div class="hero__stat-number">100<span>%</span></div>
+            <div class="hero__stat-label">Compromisso</div>
+          </div>
+        </div>
+      </div>
+      <div class="hero__cards hero-anim">
+        <div class="hero__card">
+          <div class="hero__card-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c0 1.657 2.686 3 6 3s6-1.343 6-3v-5"/></svg>
+          </div>
+          <div>
+            <div class="hero__card-title">P&oacute;s-Gradua&ccedil;&atilde;o</div>
+            <div class="hero__card-desc">Cursos de especializa&ccedil;&atilde;o com valores exclusivos para filiados.</div>
+          </div>
+        </div>
+        <div class="hero__card">
+          <div class="hero__card-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="M12 8v4l3 3"/></svg>
+          </div>
+          <div>
+            <div class="hero__card-title">Assessoria Jur&iacute;dica</div>
+            <div class="hero__card-desc">Suporte legal para quest&otilde;es trabalhistas e regulat&oacute;rias.</div>
+          </div>
+        </div>
+        <div class="hero__card">
+          <div class="hero__card-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          </div>
+          <div>
+            <div class="hero__card-title">Piso Salarial</div>
+            <div class="hero__card-desc">Negocia&ccedil;&atilde;o ativa pelo piso da categoria no estado.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SOBRE -->
+<section class="sobre" id="sobre">
+  <div class="container">
+    <div class="sobre__top reveal">
+      <p class="section-label">Quem somos</p>
+      <h2 class="sobre__org-name">Sindicato dos Cirurgi&otilde;es-Dentistas <span>do Maranh&atilde;o</span></h2>
+      <p class="sobre__intro">
+        Fundado em 20 de mar&ccedil;o de 1989, o SINCIDEMA nasceu da necessidade de unir e
+        fortalecer a classe odontol&oacute;gica maranhense. H&aacute; mais de tr&ecirc;s d&eacute;cadas atuamos na
+        defesa dos direitos trabalhistas e na valoriza&ccedil;&atilde;o profissional.
+      </p>
+    </div>
+
+    <div class="sobre__features">
+      <div class="sobre__feature reveal" style="transition-delay: 0ms">
+        <div class="sobre__feature-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/></svg>
+        </div>
+        <div>
+          <div class="sobre__feature-title">Assessoria Jur&iacute;dica</div>
+          <div class="sobre__feature-desc">Orienta&ccedil;&atilde;o gratuita em direito trabalhista e defesa profissional para todos os filiados.</div>
+        </div>
+      </div>
+      <div class="sobre__feature reveal" style="transition-delay: 80ms">
+        <div class="sobre__feature-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c0 1.657 2.686 3 6 3s6-1.343 6-3v-5"/></svg>
+        </div>
+        <div>
+          <div class="sobre__feature-title">P&oacute;s-Gradua&ccedil;&atilde;o</div>
+          <div class="sobre__feature-desc">Parcerias acad&ecirc;micas com descontos de at&eacute; 50% em cursos de especializa&ccedil;&atilde;o.</div>
+        </div>
+      </div>
+      <div class="sobre__feature reveal" style="transition-delay: 160ms">
+        <div class="sobre__feature-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <div>
+          <div class="sobre__feature-title">Representa&ccedil;&atilde;o</div>
+          <div class="sobre__feature-desc">Defesa ativa em conselhos, &oacute;rg&atilde;os p&uacute;blicos e mesas de negocia&ccedil;&atilde;o salarial.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sobre__offers">
+      <div class="sobre__offer reveal" style="transition-delay: 0ms">
+        <img src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=600&q=80&auto=format&fit=crop" alt="Dentista atendendo paciente" class="sobre__offer-img" loading="lazy">
+        <div class="sobre__offer-body">
+          <div class="sobre__offer-badge">Benef&iacute;cio</div>
+          <h3 class="sobre__offer-title">Conven&ccedil;&otilde;es Coletivas</h3>
+          <p class="sobre__offer-desc">
+            Negocia&ccedil;&atilde;o anual de piso salarial, jornada de trabalho e benef&iacute;cios junto
+            a empregadores e governo do estado, garantindo melhores condi&ccedil;&otilde;es para toda a categoria.
+          </p>
+        </div>
+      </div>
+      <div class="sobre__offer reveal" style="transition-delay: 80ms">
+        <img src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?w=600&q=80&auto=format&fit=crop" alt="Consult&oacute;rio odontol&oacute;gico moderno" class="sobre__offer-img" loading="lazy">
+        <div class="sobre__offer-body">
+          <div class="sobre__offer-badge">Exclusivo</div>
+          <h3 class="sobre__offer-title">Rede de Parcerias</h3>
+          <p class="sobre__offer-desc">
+            Conv&ecirc;nios com laborat&oacute;rios, fornecedores de insumos e institui&ccedil;&otilde;es que oferecem
+            descontos e condi&ccedil;&otilde;es especiais exclusivas para filiados do SINCIDEMA.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCIA — Dark stats section -->
+<section class="experiencia" id="experiencia">
+  <div class="experiencia__bg-image"></div>
+  <div class="experiencia__red-glow"></div>
+  <div class="container">
+    <div class="experiencia__grid">
+      <div class="experiencia__content">
+        <p class="experiencia__label reveal">Nossa experi&ecirc;ncia</p>
+        <h2 class="experiencia__title reveal">
+          Mais de <em>35 anos</em> de luta pela odontologia
+        </h2>
+        <p class="experiencia__text reveal">
+          Nossa sede em S&atilde;o Lu&iacute;s &eacute; ponto de refer&ecirc;ncia para cirurgi&otilde;es-dentistas
+          de todo o estado que buscam orienta&ccedil;&atilde;o, forma&ccedil;&atilde;o continuada e representa&ccedil;&atilde;o
+          sindical de verdade.
+        </p>
+        <a href="#filiese" class="experiencia__cta reveal">
+          Junte-se a n&oacute;s &rarr;
+        </a>
+      </div>
+      <div class="experiencia__stats">
+        <div class="experiencia__stat-card reveal" style="transition-delay: 0ms">
+          <div class="experiencia__stat-value">5.700<span>+</span></div>
+          <div class="experiencia__stat-desc">cirurgi&otilde;es-dentistas<br>no estado do Maranh&atilde;o</div>
+        </div>
+        <div class="experiencia__stat-card experiencia__stat-card--highlight reveal" style="transition-delay: 80ms">
+          <div class="experiencia__stat-value">100<span>%</span></div>
+          <div class="experiencia__stat-desc">compromisso com<br>a valoriza&ccedil;&atilde;o profissional</div>
+        </div>
+        <div class="experiencia__stat-card reveal" style="transition-delay: 160ms">
+          <div class="experiencia__stat-value">35<span>+</span></div>
+          <div class="experiencia__stat-desc">anos representando<br>a classe odontol&oacute;gica</div>
+        </div>
+        <div class="experiencia__stat-card reveal" style="transition-delay: 240ms">
+          <div class="experiencia__stat-value">1989</div>
+          <div class="experiencia__stat-desc">funda&ccedil;&atilde;o do sindicato<br>em S&atilde;o Lu&iacute;s, MA</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICOS -->
+<section class="servicos" id="servicos">
+  <div class="container">
+    <div class="servicos__header">
+      <p class="section-label reveal">Servi&ccedil;os</p>
+      <h2 class="servicos__title reveal">O que oferecemos aos filiados</h2>
+      <p class="servicos__subtitle reveal">
+        Atuamos em diversas frentes para garantir os melhores benef&iacute;cios
+        aos cirurgi&otilde;es-dentistas do Maranh&atilde;o.
+      </p>
+    </div>
+    <div class="servicos__grid">
+      <div class="servicos__card reveal" style="transition-delay: 0ms">
+        <div class="servicos__card-icon servicos__card-icon--red">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c0 1.657 2.686 3 6 3s6-1.343 6-3v-5"/></svg>
+        </div>
+        <div>
+          <h3 class="servicos__card-title">P&oacute;s-Gradua&ccedil;&atilde;o</h3>
+          <p class="servicos__card-desc">
+            Cursos de especializa&ccedil;&atilde;o e atualiza&ccedil;&atilde;o profissional com parcerias
+            acad&ecirc;micas e condi&ccedil;&otilde;es diferenciadas.
+          </p>
+        </div>
+      </div>
+      <div class="servicos__card reveal" style="transition-delay: 80ms">
+        <div class="servicos__card-icon servicos__card-icon--dark">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <div>
+          <h3 class="servicos__card-title">Assessoria Jur&iacute;dica</h3>
+          <p class="servicos__card-desc">
+            Orienta&ccedil;&atilde;o jur&iacute;dica em direito trabalhista, contratos, quest&otilde;es
+            regulat&oacute;rias e defesa profissional.
+          </p>
+        </div>
+      </div>
+      <div class="servicos__card reveal" style="transition-delay: 160ms">
+        <div class="servicos__card-icon servicos__card-icon--red">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+        </div>
+        <div>
+          <h3 class="servicos__card-title">Conven&ccedil;&otilde;es Coletivas</h3>
+          <p class="servicos__card-desc">
+            Negocia&ccedil;&atilde;o de piso salarial, jornada de trabalho e benef&iacute;cios
+            junto a empregadores e governo.
+          </p>
+        </div>
+      </div>
+      <div class="servicos__card reveal" style="transition-delay: 240ms">
+        <div class="servicos__card-icon servicos__card-icon--dark">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <div>
+          <h3 class="servicos__card-title">Representa&ccedil;&atilde;o Sindical</h3>
+          <p class="servicos__card-desc">
+            Defesa ativa dos interesses da categoria em conselhos e &oacute;rg&atilde;os
+            p&uacute;blicos estaduais.
+          </p>
+        </div>
+      </div>
+      <div class="servicos__card reveal" style="transition-delay: 320ms">
+        <div class="servicos__card-icon servicos__card-icon--red">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+        </div>
+        <div>
+          <h3 class="servicos__card-title">Educa&ccedil;&atilde;o Continuada</h3>
+          <p class="servicos__card-desc">
+            Workshops, palestras e eventos cient&iacute;ficos para manter os
+            profissionais atualizados.
+          </p>
+        </div>
+      </div>
+      <div class="servicos__card reveal" style="transition-delay: 400ms">
+        <div class="servicos__card-icon servicos__card-icon--dark">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        </div>
+        <div>
+          <h3 class="servicos__card-title">Rede de Parcerias</h3>
+          <p class="servicos__card-desc">
+            Conv&ecirc;nios com laborat&oacute;rios e fornecedores com descontos
+            exclusivos para filiados.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PISO SALARIAL -->
+<section class="piso" id="piso">
+  <div class="container">
+    <div class="piso__grid">
+      <div>
+        <p class="section-label reveal">Piso Salarial</p>
+        <h2 class="piso__title reveal">Valoriza&ccedil;&atilde;o da categoria</h2>
+        <p class="piso__text reveal">
+          Lutamos pela garantia e reajuste do piso salarial dos cirurgi&otilde;es-dentistas
+          no Maranh&atilde;o. Conhe&ccedil;a os valores de refer&ecirc;ncia negociados em conven&ccedil;&atilde;o coletiva.
+        </p>
+        <a href="#filiese" class="piso__cta reveal">
+          Filie-se e tenha acesso completo &rarr;
+        </a>
+      </div>
+      <div class="piso__cards">
+        <div class="piso__card reveal" style="transition-delay: 0ms">
+          <div class="piso__card-label">Piso MA</div>
+          <div class="piso__card-value">R$ 5.430</div>
+          <div class="piso__card-detail">Jornada 39h/semana</div>
+        </div>
+        <div class="piso__card piso__card--highlight reveal" style="transition-delay: 80ms">
+          <div class="piso__card-label">Piso S&atilde;o Lu&iacute;s</div>
+          <div class="piso__card-value">R$ 5.825</div>
+          <div class="piso__card-detail">Jornada 39h/semana</div>
+        </div>
+        <div class="piso__card reveal" style="transition-delay: 160ms">
+          <div class="piso__card-label">M&eacute;dia MA</div>
+          <div class="piso__card-value">R$ 5.709</div>
+          <div class="piso__card-detail">Base 40 profissionais</div>
+        </div>
+        <div class="piso__card reveal" style="transition-delay: 240ms">
+          <div class="piso__card-label">M&eacute;dia S&atilde;o Lu&iacute;s</div>
+          <div class="piso__card-value">R$ 6.121</div>
+          <div class="piso__card-detail">Capital do estado</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FILIE-SE -->
+<section class="filiese" id="filiese">
+  <div class="container">
+    <div class="filiese__grid">
+      <div>
+        <p class="section-label reveal">Filie-se</p>
+        <h2 class="filiese__title reveal">Fa&ccedil;a parte do SINCIDEMA</h2>
+        <p class="filiese__text reveal">
+          Ao se filiar, voc&ecirc; garante representa&ccedil;&atilde;o ativa, acesso a cursos com
+          valores diferenciados, assessoria jur&iacute;dica e muito mais.
+        </p>
+        <ul class="filiese__benefits">
+          <li class="filiese__benefit reveal" style="transition-delay: 0ms">
+            <span class="filiese__benefit-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+            Assessoria jur&iacute;dica gratuita em quest&otilde;es trabalhistas
+          </li>
+          <li class="filiese__benefit reveal" style="transition-delay: 60ms">
+            <span class="filiese__benefit-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+            Descontos em cursos de p&oacute;s-gradua&ccedil;&atilde;o e especializa&ccedil;&atilde;o
+          </li>
+          <li class="filiese__benefit reveal" style="transition-delay: 120ms">
+            <span class="filiese__benefit-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+            Participa&ccedil;&atilde;o nas assembleias e decis&otilde;es da categoria
+          </li>
+          <li class="filiese__benefit reveal" style="transition-delay: 180ms">
+            <span class="filiese__benefit-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+            Acesso &agrave; rede de conv&ecirc;nios e parcerias exclusivas
+          </li>
+          <li class="filiese__benefit reveal" style="transition-delay: 240ms">
+            <span class="filiese__benefit-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+            Defesa do piso salarial e condi&ccedil;&otilde;es de trabalho
+          </li>
+        </ul>
+      </div>
+      <div class="filiese__form-card reveal">
+        <img src="https://images.unsplash.com/photo-1588776814546-daab30f310ce?w=600&q=80&auto=format&fit=crop" alt="Equipe odontol&oacute;gica" class="filiese__form-img" loading="lazy">
+        <h3 class="filiese__form-title">Solicite sua filia&ccedil;&atilde;o</h3>
+        <p class="filiese__form-subtitle">Preencha seus dados e entraremos em contato.</p>
+        <form id="filieseForm">
+          <div class="filiese__field">
+            <input type="text" class="filiese__input" placeholder="Nome completo" required>
+          </div>
+          <div class="filiese__field">
+            <input type="email" class="filiese__input" placeholder="E-mail" required>
+          </div>
+          <div class="filiese__field">
+            <input type="tel" class="filiese__input" placeholder="Telefone / WhatsApp" required>
+          </div>
+          <div class="filiese__field">
+            <input type="text" class="filiese__input" placeholder="CRO (n&uacute;mero de registro)">
+          </div>
+          <div class="filiese__field">
+            <select class="filiese__select">
+              <option value="" disabled selected>Cidade de atua&ccedil;&atilde;o</option>
+              <option>S&atilde;o Lu&iacute;s</option>
+              <option>Imperatriz</option>
+              <option>Caxias</option>
+              <option>Timon</option>
+              <option>Cod&oacute;</option>
+              <option>Bacabal</option>
+              <option>Outra cidade do MA</option>
+            </select>
+          </div>
+          <button type="submit" class="filiese__submit">Enviar solicita&ccedil;&atilde;o</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTATO -->
+<section class="contato" id="contato">
+  <div class="container">
+    <div class="contato__header">
+      <p class="section-label reveal">Contato</p>
+      <h2 class="contato__title reveal">Fale conosco</h2>
+      <p class="contato__subtitle reveal">Estamos prontos para atender voc&ecirc;.</p>
+    </div>
+    <div class="contato__grid">
+      <div class="contato__card reveal" style="transition-delay: 0ms">
+        <div class="contato__card-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        </div>
+        <div>
+          <h3 class="contato__card-title">Endere&ccedil;o</h3>
+          <p class="contato__card-text">
+            Rua Sotero dos Reis, 111<br>
+            Vila Bessa — S&atilde;o Lu&iacute;s/MA<br>
+            CEP 65.015-480
+          </p>
+          <a href="https://maps.google.com/?q=Rua+Sotero+dos+Reis+111+Sao+Luis+MA" target="_blank" rel="noopener" class="contato__card-link">
+            Ver no mapa &rarr;
+          </a>
+        </div>
+      </div>
+      <div class="contato__card reveal" style="transition-delay: 80ms">
+        <div class="contato__card-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        </div>
+        <div>
+          <h3 class="contato__card-title">Telefone</h3>
+          <p class="contato__card-text">
+            Atendimento de segunda a sexta,<br>
+            das 8h &agrave;s 17h.
+          </p>
+          <a href="tel:+559800000000" class="contato__card-link">
+            (98) 0000-0000
+          </a>
+        </div>
+      </div>
+      <div class="contato__card reveal" style="transition-delay: 160ms">
+        <div class="contato__card-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        </div>
+        <div>
+          <h3 class="contato__card-title">E-mail</h3>
+          <p class="contato__card-text">
+            Envie sua d&uacute;vida ou solicita&ccedil;&atilde;o<br>
+            que responderemos em breve.
+          </p>
+          <a href="mailto:contato@sincidema.com.br" class="contato__card-link">
+            contato@sincidema.com.br
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer__inner">
+      <a href="#" class="footer__logo">
+        <div class="navbar__logo-icon">S</div>
+        SINCIDEMA
+      </a>
+      <ul class="footer__links">
+        <li><a href="#sobre" class="footer__link">Sobre</a></li>
+        <li><a href="#servicos" class="footer__link">Servi&ccedil;os</a></li>
+        <li><a href="#piso" class="footer__link">Piso Salarial</a></li>
+        <li><a href="#filiese" class="footer__link">Filie-se</a></li>
+        <li><a href="#contato" class="footer__link">Contato</a></li>
+      </ul>
+    </div>
+    <div class="footer__bottom">
+      <span class="footer__copy">&copy; 2026 SINCIDEMA — Todos os direitos reservados. CNPJ 23.614.399/0001-04</span>
+      <span class="footer__address">Rua Sotero dos Reis, 111 — Vila Bessa, S&atilde;o Lu&iacute;s/MA</span>
+    </div>
+  </div>
+</footer>
+
+<!-- Sticky CTA — mobile only -->
+<div class="sticky-cta" id="stickyCta">
+  <div class="sticky-cta__text">
+    <strong>Filie-se ao SINCIDEMA</strong>
+    Proteja sua carreira
+  </div>
+  <a href="#filiese" class="sticky-cta__btn">Filiar-se</a>
+</div>
+
+<!-- WhatsApp FAB -->
+<a href="https://wa.me/5598000000000?text=Ol%C3%A1%2C%20gostaria%20de%20informa%C3%A7%C3%B5es%20sobre%20o%20SINCIDEMA" target="_blank" rel="noopener" class="whatsapp-fab" aria-label="WhatsApp">
+  <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+  </svg>
+</a>
+
+<script>
+/* HERO LOAD ANIMATION */
+(function() {
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var els = document.querySelectorAll('.hero-anim');
+
+  if (reduced) {
+    els.forEach(function(el) { el.style.opacity = '1'; });
+    return;
+  }
+
+  var delays = [0, 200, 400, 600, 800, 1000];
+  els.forEach(function(el, i) {
+    var d = delays[i] || (i * 150);
+    el.style.transform = 'translateY(16px)';
+    setTimeout(function() {
+      el.style.transition = 'opacity 0.5s ease-out, transform 0.5s ease-out';
+      el.style.opacity = '1';
+      el.style.transform = 'translateY(0)';
+    }, d);
+  });
+})();
+
+/* SCROLL REVEAL */
+(function() {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  var targets = document.querySelectorAll('.reveal');
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+
+  targets.forEach(function(el) {
+    if (el.closest('.hero')) return;
+    observer.observe(el);
+  });
+})();
+
+/* NAVBAR SCROLL */
+(function() {
+  var navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', function() {
+    requestAnimationFrame(function() {
+      if (window.pageYOffset > 80) {
+        navbar.classList.add('is-scrolled');
+      } else {
+        navbar.classList.remove('is-scrolled');
+      }
+    });
+  });
+})();
+
+/* NAVBAR ACTIVE LINK */
+(function() {
+  var sections = document.querySelectorAll('section[id]');
+  var navLinks = document.querySelectorAll('.navbar__link');
+
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        var id = entry.target.getAttribute('id');
+        navLinks.forEach(function(link) {
+          link.classList.remove('is-active');
+          if (link.getAttribute('href') === '#' + id) {
+            link.classList.add('is-active');
+          }
+        });
+      }
+    });
+  }, { threshold: 0.3, rootMargin: '-72px 0px 0px 0px' });
+
+  sections.forEach(function(s) { observer.observe(s); });
+})();
+
+/* SMOOTH SCROLL */
+document.querySelectorAll('a[href^="#"]').forEach(function(link) {
+  link.addEventListener('click', function(e) {
+    var href = this.getAttribute('href');
+    if (href && href.length > 1) {
+      e.preventDefault();
+      var target = document.querySelector(href);
+      if (target) {
+        var top = target.getBoundingClientRect().top + window.pageYOffset - 80;
+        window.scrollTo({ top: top, behavior: 'smooth' });
+      }
+    }
+  });
+});
+
+/* MOBILE MENU */
+(function() {
+  var toggle = document.getElementById('mobileToggle');
+  var links = document.getElementById('navLinks');
+  if (!toggle || !links) return;
+
+  function closeMenu() {
+    links.classList.remove('is-open');
+    toggle.classList.remove('is-active');
+    document.body.style.overflow = '';
+  }
+
+  toggle.addEventListener('click', function() {
+    var isOpen = links.classList.toggle('is-open');
+    toggle.classList.toggle('is-active', isOpen);
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+  });
+
+  links.querySelectorAll('a').forEach(function(a) {
+    a.addEventListener('click', closeMenu);
+  });
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && links.classList.contains('is-open')) closeMenu();
+  });
+})();
+
+/* STICKY CTA */
+(function() {
+  var stickyCta = document.getElementById('stickyCta');
+  var hero = document.getElementById('hero');
+  var filiese = document.getElementById('filiese');
+  if (!stickyCta || !hero || !filiese) return;
+
+  var heroObs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (!entry.isIntersecting) {
+        stickyCta.classList.add('is-visible');
+      } else {
+        stickyCta.classList.remove('is-visible');
+      }
+    });
+  }, { threshold: 0 });
+
+  var filieseObs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        stickyCta.classList.remove('is-visible');
+      }
+    });
+  }, { threshold: 0.2 });
+
+  heroObs.observe(hero);
+  filieseObs.observe(filiese);
+})();
+
+/* FORM SUBMIT */
+(function() {
+  var form = document.getElementById('filieseForm');
+  if (!form) return;
+
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    var btn = form.querySelector('.filiese__submit');
+    var original = btn.textContent;
+    btn.textContent = 'Solicita\u00e7\u00e3o enviada!';
+    btn.style.background = '#991B1B';
+    setTimeout(function() {
+      btn.textContent = original;
+      btn.style.background = '';
+      form.reset();
+    }, 3000);
+  });
+})();
+</script>
+
+</body>
+</html>
