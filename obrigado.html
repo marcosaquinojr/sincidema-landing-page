@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cadastro recebido — SINCIDEMA</title>
+<meta name="description" content="Recebemos sua solicitação de filiação ao SINCIDEMA. Em breve entraremos em contato para concluir o pagamento.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --white: #FFFFFF;
+  --off-white: #F5F5F5;
+  --red-700: #B91C1C;
+  --red-600: #DC2626;
+  --red-50: #FEF2F2;
+  --dark-900: #0F0F0F;
+  --dark-700: #2A2A2A;
+  --gray-900: #111827;
+  --gray-700: #374151;
+  --gray-500: #6B7280;
+  --gray-300: #D1D5DB;
+  --gray-200: #E5E7EB;
+  --green-600: #16A34A;
+  --green-50: #F0FDF4;
+  --green-100: #DCFCE7;
+}
+
+html { font-size: 16px; }
+body {
+  background: var(--off-white);
+  color: var(--gray-900);
+  font-family: 'Inter', sans-serif;
+  line-height: 1.6;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+a { color: inherit; text-decoration: none; }
+
+.topbar { background: var(--dark-900); padding: 16px 0; border-bottom: 1px solid var(--dark-700); }
+.topbar__inner {
+  max-width: 1080px; margin: 0 auto; padding: 0 24px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.topbar__logo { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 18px; color: var(--white); }
+.topbar__logo-icon {
+  width: 36px; height: 36px;
+  background: var(--red-600); border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  color: white; font-weight: 800; font-size: 15px;
+}
+.topbar__back { font-size: 14px; color: rgba(255,255,255,0.7); transition: color 0.2s ease; }
+.topbar__back:hover { color: var(--white); }
+
+.main { flex: 1; padding: 80px 24px; display: flex; align-items: flex-start; justify-content: center; }
+.card {
+  max-width: 600px;
+  width: 100%;
+  background: var(--white);
+  border-radius: 20px;
+  padding: 56px 48px;
+  text-align: center;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.04);
+  border: 1px solid var(--gray-200);
+}
+
+.success-icon {
+  width: 80px; height: 80px;
+  border-radius: 50%;
+  background: var(--green-50);
+  border: 6px solid var(--green-100);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--green-600);
+  margin: 0 auto 24px;
+  animation: pop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+@keyframes pop {
+  0% { transform: scale(0.6); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.title {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  font-size: clamp(28px, 4vw, 38px);
+  color: var(--dark-900);
+  margin-bottom: 12px;
+  line-height: 1.15;
+}
+.subtitle { font-size: 16px; color: var(--gray-500); margin-bottom: 32px; max-width: 480px; margin-left: auto; margin-right: auto; }
+.protocolo {
+  display: inline-block;
+  padding: 8px 16px;
+  background: var(--red-50);
+  color: var(--red-700);
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 14px;
+  margin-bottom: 28px;
+  letter-spacing: 0.02em;
+}
+.protocolo span { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+
+.steps-next {
+  text-align: left;
+  background: var(--off-white);
+  border-radius: 14px;
+  padding: 24px;
+  margin-bottom: 28px;
+}
+.steps-next h3 {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--dark-900);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 14px;
+}
+.steps-next ol { padding-left: 20px; }
+.steps-next li {
+  font-size: 14px;
+  color: var(--gray-700);
+  margin-bottom: 8px;
+  line-height: 1.55;
+}
+.steps-next li:last-child { margin-bottom: 0; }
+.steps-next strong { color: var(--dark-900); }
+
+.actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+.btn {
+  padding: 14px 28px;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 15px;
+  font-family: inherit;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: background 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease;
+  cursor: pointer;
+  border: none;
+}
+.btn--primary { background: var(--red-600); color: white; box-shadow: 0 4px 16px rgba(220, 38, 38, 0.2); }
+.btn--primary:hover { background: var(--red-700); }
+.btn--ghost { background: transparent; color: var(--gray-700); border: 1px solid var(--gray-200); }
+.btn--ghost:hover { background: var(--off-white); }
+
+@media (max-width: 640px) {
+  .main { padding: 40px 16px; }
+  .card { padding: 40px 24px; }
+  .topbar__back span { display: none; }
+}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar__inner">
+    <a href="index.html" class="topbar__logo">
+      <span class="topbar__logo-icon">S</span>
+      SINCIDEMA
+    </a>
+    <a href="index.html" class="topbar__back">Voltar ao site</a>
+  </div>
+</header>
+
+<main class="main">
+  <div class="card">
+    <div class="success-icon">
+      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="20 6 9 17 4 12"/>
+      </svg>
+    </div>
+
+    <h1 class="title">Cadastro recebido!</h1>
+    <p class="subtitle">Sua solicitação de filiação foi registrada. Em breve nossa equipe entrará em contato para concluir o pagamento da anuidade.</p>
+
+    <div class="protocolo" id="protocolo" style="display:none;">
+      Protocolo: <span id="protocoloId"></span>
+    </div>
+
+    <div class="steps-next">
+      <h3>Próximos passos</h3>
+      <ol>
+        <li>Você receberá um <strong>e-mail de confirmação</strong> com o resumo do seu cadastro.</li>
+        <li>Em até <strong>2 dias úteis</strong>, nossa equipe enviará o <strong>link de pagamento</strong> conforme a forma escolhida (Pix, cartão à vista ou parcelado).</li>
+        <li>Após a confirmação do pagamento, sua <strong>filiação fica ativa por 12 meses</strong>.</li>
+      </ol>
+    </div>
+
+    <div class="actions">
+      <a href="index.html" class="btn btn--ghost">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+        Voltar ao site
+      </a>
+      <a href="https://wa.me/5598984785809?text=Ol%C3%A1%2C%20acabei%20de%20me%20cadastrar%20no%20SINCIDEMA" target="_blank" rel="noopener" class="btn btn--primary">
+        Falar no WhatsApp
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.8-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.2-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.2-.2.2-.3.3-.5.1-.2.1-.4 0-.5-.1-.1-.7-1.6-.9-2.2-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.1-.3-.2-.6-.4M12 22a10 10 0 0 1-5-1.4L2 22l1.4-5A10 10 0 1 1 12 22"/></svg>
+      </a>
+    </div>
+  </div>
+</main>
+
+<script>
+(function () {
+  try {
+    var raw = sessionStorage.getItem('sincidema_ultimo_envio');
+    if (!raw) return;
+    var data = JSON.parse(raw);
+    if (data.id) {
+      document.getElementById('protocolo').style.display = 'inline-block';
+      document.getElementById('protocoloId').textContent = data.id;
+    }
+  } catch (_) {}
+})();
+</script>
+</body>
+</html>
