@@ -5,9 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Filie-se | SINCIDEMA</title>
 <meta name="description" content="Filiação ao SINCIDEMA, Sindicato dos Cirurgiões-Dentistas do Estado do Maranhão. Cadastre-se em 3 passos.">
+<link rel="icon" type="image/png" href="assets/img/favicon.png">
+<link rel="apple-touch-icon" href="assets/img/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700;9..144,800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,600;1,700;1,800&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -72,11 +74,12 @@ button { font-family: inherit; }
 }
 .topbar__logo-icon {
   width: 36px; height: 36px;
-  background: var(--red-600);
+  background: var(--white);
   border-radius: 8px;
+  padding: 3px;
   display: flex; align-items: center; justify-content: center;
-  color: white; font-weight: 800; font-size: 15px;
 }
+.topbar__logo-icon img { width: 100%; height: 100%; object-fit: contain; display: block; }
 .topbar__back {
   font-size: 14px;
   color: rgba(255,255,255,0.7);
@@ -108,7 +111,7 @@ button { font-family: inherit; }
   margin-bottom: 10px;
 }
 .page-header__title {
-  font-family: 'Fraunces', serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
   font-weight: 700;
   font-size: clamp(28px, 4vw, 42px);
   color: var(--dark-900);
@@ -182,7 +185,7 @@ button { font-family: inherit; }
   box-shadow: 0 1px 3px rgba(0,0,0,0.04);
 }
 .card__title {
-  font-family: 'Fraunces', serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
   font-weight: 600;
   font-size: 22px;
   color: var(--dark-900);
@@ -469,7 +472,7 @@ button { font-family: inherit; }
 <header class="topbar">
   <div class="topbar__inner">
     <a href="index.html" class="topbar__logo">
-      <span class="topbar__logo-icon">S</span>
+      <span class="topbar__logo-icon"><img src="assets/img/logo-sincidema.png" alt="Logo SINCIDEMA"></span>
       SINCIDEMA
     </a>
     <a href="index.html" class="topbar__back" aria-label="Voltar">
@@ -579,7 +582,7 @@ button { font-family: inherit; }
           <h2 class="card__title">Dados profissionais e endereço</h2>
           <p class="card__subtitle">Para validar seu registro e enviar correspondências.</p>
 
-          <div class="row row--3">
+          <div class="row row--3" id="croRow">
             <div class="field">
               <label class="field__label" for="cro">CRO (número de registro)</label>
               <input type="text" id="cro" name="cro" class="field__input" placeholder="Ex.: 12345" inputmode="numeric" autocomplete="off" required>

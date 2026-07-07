@@ -74,9 +74,18 @@
     var el = document.getElementById(id);
     if (!el) return;
     el.addEventListener('input', function () {
-      var pos = el.selectionEnd;
-      el.value = fn(el.value);
-      try { el.setSelectionRange(pos, pos); } catch (_) {}
+      // Conta os dígitos antes do cursor pra reposicioná-lo certo mesmo digitando rápido
+      var digitsBefore = el.value.slice(0, el.selectionStart).replace(/\D/g, '').length;
+      var masked = fn(el.value);
+      if (el.value !== masked) {
+        el.value = masked;
+        var pos = 0, count = 0;
+        while (pos < masked.length && count < digitsBefore) {
+          if (/\d/.test(masked.charAt(pos))) count++;
+          pos++;
+        }
+        try { el.setSelectionRange(pos, pos); } catch (_) {}
+      }
       setInvalid(el, false);
     });
   }
@@ -215,22 +224,23 @@
     payInfoValue.textContent = formatBRL(valorAnuidade());
   }
 
-  // Estudante ainda não tem CRO: campo vira opcional e o local de trabalho vira faculdade
+  // Estudante não tem CRO: o campo some do formulário e o local de trabalho vira faculdade
   function applyCategoria() {
     var estudante = categoriaAtual() === 'estudante';
+    var croRow = document.getElementById('croRow');
     var cro = document.getElementById('cro');
     var croUf = document.getElementById('cro_uf');
-    var croLabel = document.querySelector('label[for="cro"]');
     var localLabel = document.querySelector('label[for="local_trabalho"]');
     var localInput = document.getElementById('local_trabalho');
 
+    croRow.style.display = estudante ? 'none' : '';
     cro.required = !estudante;
     croUf.required = !estudante;
     if (estudante) {
+      cro.value = '';
       setInvalid(cro, false);
       setInvalid(croUf, false);
     }
-    croLabel.textContent = estudante ? 'CRO (opcional para estudante)' : 'CRO (número de registro)';
     localLabel.textContent = estudante ? 'Faculdade / instituição de ensino' : 'Local de trabalho / instituição';
     localInput.placeholder = estudante
       ? 'Ex.: UFMA, Curso de Odontologia'
@@ -264,7 +274,7 @@
     var html =
       '<strong>' + (data.nome || '—') + '</strong> · ' + (estudante ? 'Estudante' : 'Cirurgião-dentista') + '<br>' +
       'CPF ' + (data.cpf || '—') +
-      (estudante && !data.cro ? '' : ' · CRO ' + (data.cro || '—') + '/' + (data.cro_uf || '—')) + '<br>' +
+      (estudante ? '' : ' · CRO ' + (data.cro || '—') + '/' + (data.cro_uf || '—')) + '<br>' +
       (data.email || '—') + ' · ' + (data.telefone || '—') + '<br>' +
       'Forma: <strong>' + formaLabel + '</strong>' +
       '<br>Valor: <strong>' + formatBRL(valorAnuidade()) + '</strong>';
