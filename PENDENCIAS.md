@@ -21,7 +21,7 @@
 
 - **Modelo:** anuidade por **exercício anual** (competência = ano-calendário, válida até 31/12)
   - **Profissional:** R$ 240 · meta da campanha: 2.000 sindicalizados
-  - **Estudante:** R$ 100 · meta da campanha: 1.000 sindicalizados (CRO opcional no formulário)
+  - **Estudante:** R$ 100 · meta da campanha: 1.000 sindicalizados (campo CRO não aparece para estudante)
 - **Banco:** Neon Postgres `sincidema-db` (integração Vercel Marketplace, env `DATABASE_URL`)
   - Tabelas `filiados` e `pagamentos` (schema em `db/schema.sql`)
   - Índice único impede pagar duas vezes a mesma competência
@@ -59,12 +59,12 @@
 
 ## 🛠️ Ajustes técnicos / funcionais
 
-- [ ] **Favicon** — Não existe `<link rel="icon">`. Adicionar favicon com a identidade do sindicato (o 404 aparece no console).
+- [x] **Favicon** ✅ gerado a partir da logo oficial e aplicado em todas as páginas (07/07/2026).
 - [ ] **Meta tags Open Graph** — Falta `og:image`, `og:title`, `og:description`. Necessário para compartilhamento em WhatsApp/Instagram/Facebook.
 
 ## 🎨 Identidade visual
 
-- [ ] **Logo** — Atualmente é um quadrado vermelho com a letra "S". Substituir pela logo oficial do SINCIDEMA.
+- [x] **Logo** ✅ logo oficial (mapa do MA) aplicada na navbar, topbars e rodapé com fundo removido (07/07/2026). Obs.: a imagem original é 324x400 de baixa resolução; se surgir um arquivo vetorial/alta resolução, vale substituir `assets/img/logo-original.jpg` e regenerar.
 - [ ] **Imagens** — Todas são fotos genéricas do Unsplash. Substituir por fotos reais do sindicato, diretoria, eventos ou sede.
 
 ## 📝 Conteúdo a considerar
