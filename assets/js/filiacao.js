@@ -204,7 +204,7 @@
 
   function updatePayInfo() {
     if (VALOR_ANUIDADE > 0) {
-      payInfoText.textContent = 'Anuidade válida por 12 meses a partir da confirmação do pagamento.';
+      payInfoText.textContent = 'Valor da anuidade 2026.';
       payInfoValue.style.display = 'inline-block';
       payInfoValue.textContent = formatBRL(VALOR_ANUIDADE);
     }

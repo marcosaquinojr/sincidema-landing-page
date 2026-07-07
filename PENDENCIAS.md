@@ -1,5 +1,16 @@
 # SINCIDEMA — Pendências
 
+## 🌐 Deploy
+
+- **Repositório:** github.com/marcosaquinojr/sincidema-landing-page
+- **Projeto Vercel:** `sincidema-landing-page` (team `marcosaknos-projects`)
+- **URL provisória:** https://sincidema-landing-page.vercel.app
+- **Domínio final:** https://sincidema.com.br (registrado na Hostinger)
+- **Status DNS:** ⏳ aguardando troca de nameservers
+  - Trocar `ns1.dns-parking.com` / `ns2.dns-parking.com` → `ns1.vercel-dns.com` / `ns2.vercel-dns.com`
+  - Painel Hostinger → Domínios → sincidema.com.br → DNS/Nameservers → Editar
+  - Propagação: 1–24h. Vercel emite SSL automaticamente quando detectar.
+
 ## ✅ Implementado (Fase 1)
 
 - Landing page (`index.html`) com CTAs apontando para `filiacao.html`
