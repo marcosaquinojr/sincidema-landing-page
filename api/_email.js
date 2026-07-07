@@ -15,8 +15,8 @@ export async function enviarConfirmacaoPagamento({ nome, email, competencia, cat
   const rotulo = (CATEGORIAS[categoria] || CATEGORIAS.profissional).rotulo;
   const valor = formatBRL(valor_centavos);
   const pagamento = metodo === 'pix'
-    ? `Pix — ${valor}`
-    : (parcelas > 1 ? `Cartão de crédito — ${parcelas}x (total ${valor})` : `Cartão de crédito — ${valor}`);
+    ? `Pix (${valor})`
+    : (parcelas > 1 ? `Cartão de crédito em ${parcelas}x (total ${valor})` : `Cartão de crédito (${valor})`);
   const primeiroNome = String(nome || '').trim().split(/\s+/)[0] || 'colega';
 
   const html = `
@@ -32,7 +32,7 @@ export async function enviarConfirmacaoPagamento({ nome, email, competencia, cat
         filiação ao SINCIDEMA está <strong>ativa</strong>.
       </p>
       <table style="width:100%;font-size:14px;border-collapse:collapse;margin-bottom:18px;">
-        <tr><td style="padding:8px 0;color:#6B7280;">Anuidade</td><td style="padding:8px 0;text-align:right;font-weight:bold;">${competencia} — ${rotulo}</td></tr>
+        <tr><td style="padding:8px 0;color:#6B7280;">Anuidade</td><td style="padding:8px 0;text-align:right;font-weight:bold;">${competencia} · ${rotulo}</td></tr>
         <tr><td style="padding:8px 0;color:#6B7280;border-top:1px solid #F3F4F6;">Validade</td><td style="padding:8px 0;text-align:right;border-top:1px solid #F3F4F6;">até 31/12/${competencia}</td></tr>
         <tr><td style="padding:8px 0;color:#6B7280;border-top:1px solid #F3F4F6;">Pagamento</td><td style="padding:8px 0;text-align:right;border-top:1px solid #F3F4F6;">${pagamento}</td></tr>
       </table>
@@ -45,7 +45,7 @@ export async function enviarConfirmacaoPagamento({ nome, email, competencia, cat
       </p>
     </div>
     <p style="font-size:12px;color:#9CA3AF;text-align:center;margin-top:14px;">
-      SINCIDEMA — Sindicato dos Cirurgiões-Dentistas do Estado do Maranhão · sincidema.com.br
+      SINCIDEMA · Sindicato dos Cirurgiões-Dentistas do Estado do Maranhão · sincidema.com.br
     </p>
   </div>`;
 

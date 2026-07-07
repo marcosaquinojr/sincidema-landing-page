@@ -233,8 +233,8 @@
     croLabel.textContent = estudante ? 'CRO (opcional para estudante)' : 'CRO (número de registro)';
     localLabel.textContent = estudante ? 'Faculdade / instituição de ensino' : 'Local de trabalho / instituição';
     localInput.placeholder = estudante
-      ? 'Ex.: UFMA — Curso de Odontologia'
-      : 'Ex.: Clínica OdontoLuís — São Luís/MA';
+      ? 'Ex.: UFMA, Curso de Odontologia'
+      : 'Ex.: Clínica OdontoLuís, São Luís/MA';
 
     buildParcelas();
     updatePayInfo();
@@ -258,7 +258,7 @@
       pix: 'Pix à vista',
       credito_avista: 'Cartão de crédito à vista',
       credito_parcelado: 'Cartão de crédito parcelado' + (data.parcelas ? ' em ' + data.parcelas + 'x' : '')
-    }[forma] || '— selecione acima —';
+    }[forma] || 'selecione acima';
 
     var estudante = categoriaAtual() === 'estudante';
     var html =

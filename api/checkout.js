@@ -82,7 +82,7 @@ export async function POST(request) {
         currency: 'brl',
         unit_amount: valorCentavos,
         product_data: {
-          name: `Anuidade SINCIDEMA ${competencia} — ${CATEGORIAS[categoria].rotulo}`,
+          name: `Anuidade SINCIDEMA ${competencia} (${CATEGORIAS[categoria].rotulo})`,
           description: `Sindicalização exercício ${competencia} (válida até 31/12/${competencia})`,
         },
       },
