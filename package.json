@@ -1,0 +1,11 @@
+{
+  "name": "sincidema-landing-page",
+  "version": "2.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Landing + filiação online SINCIDEMA — site estático + funções serverless (Stripe + Neon)",
+  "dependencies": {
+    "@neondatabase/serverless": "^1.0.1",
+    "stripe": "^18.5.0"
+  }
+}

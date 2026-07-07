@@ -6,11 +6,10 @@
   // ====================================================================
   // Defina o valor da anuidade em reais. Deixe 0 para ocultar o valor
   // e exibir "Valor a confirmar" no card de pagamento.
-  var VALOR_ANUIDADE = 0;            // ex.: 500.00
-  var MAX_PARCELAS = 12;             // limite no cartão parcelado
+  var VALOR_ANUIDADE = 240;          // R$ 240,00 — valor integral da sindicalização
+  var MAX_PARCELAS = 6;              // limite no cartão parcelado
   var PARCELAS_SEM_JUROS = 6;        // até quantas parcelas sem juros
   var STORAGE_KEY = 'sincidema_filiacao_rascunho';
-  var SUBMISSIONS_KEY = 'sincidema_filiacoes_pendentes';
   // ====================================================================
 
   var form = document.getElementById('filiacaoForm');
@@ -281,31 +280,31 @@
     if (!validateStep(3)) return;
 
     var data = collectData();
-    data.criado_em = new Date().toISOString();
-    data.status = 'pendente_pagamento';
-    data.valor_anuidade = VALOR_ANUIDADE || null;
-    data.id = 'sind_' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
-
-    // Persiste localmente (Fase 1 — substituir por Supabase na Fase 2)
-    try {
-      var list = JSON.parse(localStorage.getItem(SUBMISSIONS_KEY) || '[]');
-      list.push(data);
-      localStorage.setItem(SUBMISSIONS_KEY, JSON.stringify(list));
-      localStorage.removeItem(STORAGE_KEY);
-    } catch (_) {}
-
-    // Guarda último envio pra exibir na obrigado.html
-    try {
-      sessionStorage.setItem('sincidema_ultimo_envio', JSON.stringify(data));
-    } catch (_) {}
 
     submitBtn.disabled = true;
-    submitBtn.innerHTML = 'Enviando...';
+    submitBtn.innerHTML = 'Preparando pagamento...';
 
-    // Simula latência de envio (Fase 2: chamada à edge function Asaas)
-    setTimeout(function () {
-      window.location.href = 'obrigado.html';
-    }, 600);
+    fetch('/api/checkout', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    })
+      .then(function (r) { return r.json().then(function (body) { return { ok: r.ok, body: body }; }); })
+      .then(function (res) {
+        if (!res.ok) throw new Error(res.body.error || 'Erro ao iniciar pagamento.');
+        // Guarda último envio pra exibir na obrigado.html
+        try {
+          data.competencia = res.body.competencia;
+          sessionStorage.setItem('sincidema_ultimo_envio', JSON.stringify(data));
+          localStorage.removeItem(STORAGE_KEY);
+        } catch (_) {}
+        window.location.href = res.body.url; // Stripe Checkout
+      })
+      .catch(function (err) {
+        alert(err.message);
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = 'Ir para o pagamento';
+      });
   });
 
   // -------------------- Boot --------------------

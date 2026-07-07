@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Admin — SINCIDEMA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --white:#FFF; --off-white:#F5F5F5;
+  --red-700:#B91C1C; --red-600:#DC2626; --red-50:#FEF2F2; --red-100:#FEE2E2;
+  --dark-900:#0F0F0F; --gray-900:#111827; --gray-700:#374151; --gray-500:#6B7280;
+  --gray-300:#D1D5DB; --gray-200:#E5E7EB; --gray-100:#F3F4F6; --border:#E5E7EB;
+  --green-600:#16A34A; --green-50:#F0FDF4;
+  --amber-700:#B45309; --amber-50:#FFFBEB;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:'Inter',sans-serif; background:var(--off-white); color:var(--gray-900); min-height:100vh; }
+.topbar { background:var(--dark-900); color:var(--white); padding:16px 24px; display:flex; align-items:center; justify-content:space-between; }
+.topbar h1 { font-family:'Fraunces',serif; font-size:20px; font-weight:700; }
+.topbar h1 span { color:var(--red-600); }
+.topbar button { background:none; border:1px solid rgba(255,255,255,.3); color:var(--white); padding:6px 14px; border-radius:8px; font-size:13px; cursor:pointer; }
+.wrap { max-width:1100px; margin:0 auto; padding:28px 20px 60px; }
+
+.login { max-width:380px; margin:80px auto; background:var(--white); border:1px solid var(--border); border-radius:16px; padding:32px; }
+.login h2 { font-family:'Fraunces',serif; font-size:22px; margin-bottom:6px; }
+.login p { font-size:14px; color:var(--gray-500); margin-bottom:20px; }
+.login input { width:100%; padding:12px 14px; border:1px solid var(--gray-300); border-radius:10px; font-size:15px; margin-bottom:12px; font-family:inherit; }
+.login button { width:100%; padding:12px; background:var(--red-600); color:var(--white); border:none; border-radius:10px; font-size:15px; font-weight:600; cursor:pointer; }
+.login .erro { color:var(--red-700); font-size:13px; margin-top:10px; display:none; }
+
+.toolbar { display:flex; gap:12px; margin-bottom:20px; flex-wrap:wrap; align-items:center; }
+.toolbar input { flex:1; min-width:220px; padding:11px 14px; border:1px solid var(--gray-300); border-radius:10px; font-size:14px; font-family:inherit; }
+.stats { display:flex; gap:10px; font-size:13px; color:var(--gray-500); }
+.stats strong { color:var(--gray-900); }
+
+.tbl-scroll { overflow-x:auto; background:var(--white); border:1px solid var(--border); border-radius:14px; }
+table { width:100%; border-collapse:collapse; font-size:14px; min-width:760px; }
+th { text-align:left; padding:12px 14px; background:var(--gray-100); color:var(--gray-700); font-size:12px; text-transform:uppercase; letter-spacing:.04em; }
+td { padding:12px 14px; border-top:1px solid var(--gray-100); vertical-align:top; }
+tr:hover td { background:var(--gray-100); }
+.nome { font-weight:600; }
+.sub { color:var(--gray-500); font-size:12.5px; }
+.badge { display:inline-block; padding:3px 10px; border-radius:999px; font-size:12px; font-weight:600; margin:1px 3px 1px 0; white-space:nowrap; }
+.badge--pago { background:var(--green-50); color:var(--green-600); }
+.badge--pendente { background:var(--amber-50); color:var(--amber-700); }
+.badge--falhou, .badge--expirado { background:var(--red-50); color:var(--red-700); }
+.vazio { text-align:center; padding:40px; color:var(--gray-500); }
+.hidden { display:none; }
+</style>
+</head>
+<body>
+
+<div id="loginView" class="login">
+  <h2>Área administrativa</h2>
+  <p>SINCIDEMA — filiados e anuidades</p>
+  <input type="password" id="tokenInput" placeholder="Senha de acesso" autocomplete="current-password">
+  <button id="entrarBtn">Entrar</button>
+  <p class="erro" id="loginErro">Senha incorreta.</p>
+</div>
+
+<div id="appView" class="hidden">
+  <div class="topbar">
+    <h1>SINCIDEMA <span>· Admin</span></h1>
+    <button id="sairBtn">Sair</button>
+  </div>
+  <div class="wrap">
+    <div class="toolbar">
+      <input type="search" id="busca" placeholder="Buscar por nome, CPF ou e-mail…">
+      <div class="stats">
+        <span>Filiados: <strong id="statTotal">–</strong></span>
+        <span>· Pagos <span id="anoAtual"></span>: <strong id="statPagos">–</strong></span>
+      </div>
+    </div>
+    <div class="tbl-scroll">
+      <table>
+        <thead>
+          <tr><th>Filiado</th><th>Contato</th><th>CRO</th><th>Competências</th><th>Cadastro</th></tr>
+        </thead>
+        <tbody id="tbody"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<script>
+(function () {
+  var TOKEN_KEY = 'sincidema_admin_token';
+  var loginView = document.getElementById('loginView');
+  var appView = document.getElementById('appView');
+  var tbody = document.getElementById('tbody');
+  var anoAtual = new Date().getFullYear();
+  document.getElementById('anoAtual').textContent = anoAtual;
+
+  function fmtCPF(c) { return c.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4'); }
+  function fmtData(d) { return d ? new Date(d).toLocaleDateString('pt-BR') : '—'; }
+  function esc(s) { var d = document.createElement('div'); d.textContent = s == null ? '' : s; return d.innerHTML; }
+
+  function carregar(q) {
+    var token = sessionStorage.getItem(TOKEN_KEY);
+    if (!token) return;
+    fetch('/api/admin' + (q ? '?q=' + encodeURIComponent(q) : ''), {
+      headers: { 'Authorization': 'Bearer ' + token }
+    }).then(function (r) {
+      if (r.status === 401) { sair(); throw new Error('unauthorized'); }
+      return r.json();
+    }).then(render).catch(function () {});
+  }
+
+  function render(data) {
+    loginView.classList.add('hidden');
+    appView.classList.remove('hidden');
+    document.getElementById('statTotal').textContent = data.total;
+    var pagosAno = 0;
+    tbody.innerHTML = '';
+    if (!data.filiados.length) {
+      tbody.innerHTML = '<tr><td colspan="5" class="vazio">Nenhum filiado encontrado.</td></tr>';
+    }
+    data.filiados.forEach(function (f) {
+      var badges = f.pagamentos.map(function (p) {
+        if (p.competencia === anoAtual && p.status === 'pago') pagosAno++;
+        return '<span class="badge badge--' + esc(p.status) + '">' + p.competencia + ' · ' + esc(p.status) +
+          (p.status === 'pago' && p.metodo === 'card' && p.parcelas > 1 ? ' ' + p.parcelas + 'x' : '') +
+          (p.status === 'pago' && p.metodo === 'pix' ? ' pix' : '') + '</span>';
+      }).join('') || '<span class="sub">sem pagamentos</span>';
+      var tr = document.createElement('tr');
+      tr.innerHTML =
+        '<td><div class="nome">' + esc(f.nome) + '</div><div class="sub">' + fmtCPF(f.cpf) + '</div></td>' +
+        '<td><div>' + esc(f.email) + '</div><div class="sub">' + esc(f.telefone || '—') + '</div></td>' +
+        '<td>' + esc(f.cro || '—') + (f.cro_uf ? '/' + esc(f.cro_uf) : '') + '</td>' +
+        '<td>' + badges + '</td>' +
+        '<td class="sub">' + fmtData(f.criado_em) + '</td>';
+      tbody.appendChild(tr);
+    });
+    document.getElementById('statPagos').textContent = pagosAno;
+  }
+
+  function entrar() {
+    var t = document.getElementById('tokenInput').value.trim();
+    if (!t) return;
+    fetch('/api/admin', { headers: { 'Authorization': 'Bearer ' + t } }).then(function (r) {
+      if (r.ok) {
+        sessionStorage.setItem(TOKEN_KEY, t);
+        return r.json().then(render);
+      }
+      document.getElementById('loginErro').style.display = 'block';
+    });
+  }
+
+  function sair() {
+    sessionStorage.removeItem(TOKEN_KEY);
+    appView.classList.add('hidden');
+    loginView.classList.remove('hidden');
+  }
+
+  document.getElementById('entrarBtn').addEventListener('click', entrar);
+  document.getElementById('tokenInput').addEventListener('keydown', function (e) { if (e.key === 'Enter') entrar(); });
+  document.getElementById('sairBtn').addEventListener('click', sair);
+
+  var debounce;
+  document.getElementById('busca').addEventListener('input', function (e) {
+    clearTimeout(debounce);
+    debounce = setTimeout(function () { carregar(e.target.value.trim()); }, 350);
+  });
+
+  if (sessionStorage.getItem(TOKEN_KEY)) carregar();
+})();
+</script>
+</body>
+</html>
