@@ -5,8 +5,7 @@ import {
 
 const FORMAS = ['pix', 'credito_avista', 'credito_parcelado'];
 
-export default async function handler(request) {
-  if (request.method !== 'POST') return json({ error: 'Método não permitido' }, 405);
+export async function POST(request) {
 
   let d;
   try { d = await request.json(); } catch { return json({ error: 'JSON inválido' }, 400); }

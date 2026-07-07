@@ -2,8 +2,7 @@ import { sql, stripe, json } from './_lib.js';
 
 // Webhook Stripe — confirma/atualiza o status do pagamento da anuidade.
 // Eventos: checkout.session.completed | .async_payment_succeeded | .async_payment_failed | .expired
-export default async function handler(request) {
-  if (request.method !== 'POST') return json({ error: 'Método não permitido' }, 405);
+export async function POST(request) {
 
   const raw = await request.text();
   const sig = request.headers.get('stripe-signature');

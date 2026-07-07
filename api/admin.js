@@ -1,13 +1,12 @@
 import { sql, json } from './_lib.js';
 
 // Lista filiados + pagamentos por competência. Protegido por token (env ADMIN_TOKEN).
-export default async function handler(request) {
+export async function GET(request) {
   const auth = request.headers.get('authorization') || '';
   const token = auth.replace(/^Bearer\s+/i, '');
   if (!process.env.ADMIN_TOKEN || token !== process.env.ADMIN_TOKEN) {
     return json({ error: 'Não autorizado' }, 401);
   }
-  if (request.method !== 'GET') return json({ error: 'Método não permitido' }, 405);
 
   const q = new URL(request.url).searchParams.get('q');
   const filtro = q ? `%${q}%` : null;
