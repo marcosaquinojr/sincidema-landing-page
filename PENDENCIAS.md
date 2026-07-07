@@ -19,7 +19,9 @@
 
 ## ✅ Implementado (Fase 2 — jul/2026): pagamento Stripe + Neon
 
-- **Modelo:** anuidade R$ 240 por **exercício anual** (competência = ano-calendário, válida até 31/12)
+- **Modelo:** anuidade por **exercício anual** (competência = ano-calendário, válida até 31/12)
+  - **Profissional:** R$ 240 · meta da campanha: 2.000 sindicalizados
+  - **Estudante:** R$ 100 · meta da campanha: 1.000 sindicalizados (CRO opcional no formulário)
 - **Banco:** Neon Postgres `sincidema-db` (integração Vercel Marketplace, env `DATABASE_URL`)
   - Tabelas `filiados` e `pagamentos` (schema em `db/schema.sql`)
   - Índice único impede pagar duas vezes a mesma competência
@@ -27,6 +29,9 @@
   - `api/checkout.js` — upsert filiado + pagamento pendente + sessão Stripe Checkout (Pix ou cartão; parcelado envia `installments.enabled`)
   - `api/webhook.js` — eventos `checkout.session.*` marcam pago/falhou/expirado (assinatura verificada)
   - `api/admin.js` — lista filiados + competências (Bearer token `ADMIN_TOKEN`)
+  - `api/stats.js` — público, alimenta o contador regressivo da landing (pagos/restantes por categoria, cache de 60s)
+  - `api/_email.js` — e-mail de confirmação de pagamento via **Resend** (disparado pelo webhook; no-op sem `RESEND_API_KEY`)
+- **Contador regressivo** na landing (seção "Meta"): profissionais e estudantes separados, diminui a cada pagamento confirmado da competência atual
 - **Admin:** `admin.html` (senha = `ADMIN_TOKEN` do Vercel env; badge por competência, busca)
 - **Webhook Stripe:** endpoint `we_1TqYzrDUREk3qUbH1lxAXEsd` → https://sincidema.com.br/api/webhook
 - **Env vars (Vercel):** `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET`, `ADMIN_TOKEN`, `SITE_URL`, `DATABASE_URL` (Neon)
@@ -37,7 +42,7 @@
 - [ ] **Ativar Pix no Stripe** (dashboard → Settings → Payment methods). Para conta BR real é *invite-only* — solicitar acesso. Enquanto não ativo, opção Pix do formulário retorna erro.
 - [ ] **Parcelamento no Checkout:** a sessão aceita `installments.enabled`, mas o seletor de parcelas não apareceu no sandbox — verificar/habilitar "Parcelamento" nas configurações de formas de pagamento da conta.
 - [ ] **Go-live Stripe:** criar/ativar conta real (CNPJ do sindicato), trocar `STRIPE_SECRET_KEY`, recriar webhook (novo `STRIPE_WEBHOOK_SECRET`).
-- [ ] **E-mail de confirmação próprio** (opcional — o Stripe já envia recibo se configurado no dashboard).
+- [ ] **Ativar o e-mail de confirmação (Resend):** código pronto; falta (1) criar conta gratuita em https://resend.com, (2) verificar o domínio sincidema.com.br (adicionar os registros DNS que o Resend pedir — o DNS é gerenciado pela Vercel), (3) criar API key e salvar como `RESEND_API_KEY` no Vercel. Opcional: `EMAIL_FROM` (padrão `SINCIDEMA <contato@sincidema.com.br>`). Sem a key, o pagamento confirma normalmente, só não envia e-mail.
 - [ ] **Limpar registros de teste** do banco antes do go-live (`DELETE FROM pagamentos; DELETE FROM filiados;`).
 
 ## 📞 Informações com placeholders (dados reais necessários)
