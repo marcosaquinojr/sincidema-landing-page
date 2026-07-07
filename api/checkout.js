@@ -103,9 +103,11 @@ export async function POST(request) {
       try {
         session = await stripe.checkout.sessions.create(params);
       } catch (err2) {
+        await sql`DELETE FROM pagamentos WHERE id = ${pagamento.id}`;
         return json({ error: 'Falha ao iniciar pagamento: ' + err2.message }, 502);
       }
     } else {
+      await sql`DELETE FROM pagamentos WHERE id = ${pagamento.id}`;
       return json({ error: 'Falha ao iniciar pagamento: ' + err.message }, 502);
     }
   }
