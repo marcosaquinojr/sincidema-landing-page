@@ -33,17 +33,18 @@
   - `api/_email.js` — e-mail de confirmação de pagamento via **Resend** (disparado pelo webhook; no-op sem `RESEND_API_KEY`)
 - **Contador regressivo** na landing (seção "Meta"): profissionais e estudantes separados, diminui a cada pagamento confirmado da competência atual
 - **Admin:** `admin.html` (senha = `ADMIN_TOKEN` do Vercel env; badge por competência, busca)
-- **Webhook Stripe:** endpoint `we_1TqYzrDUREk3qUbH1lxAXEsd` → https://sincidema.com.br/api/webhook
-- **Env vars (Vercel):** `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET`, `ADMIN_TOKEN`, `SITE_URL`, `DATABASE_URL` (Neon)
+- **Webhook Stripe (PRODUÇÃO):** endpoint `we_1TqdiADn6jxMVcX6GGs61y3D` → https://sincidema.com.br/api/webhook (conta oficial `acct_1TqYfyDn6jxMVcX6`, criado em 07/07/2026)
+- **Env vars (Vercel):** `STRIPE_SECRET_KEY` (LIVE em production desde 07/07/2026; development segue com a chave de sandbox), `STRIPE_WEBHOOK_SECRET`, `ADMIN_TOKEN`, `SITE_URL`, `DATABASE_URL` (Neon)
 - **Testado ponta a ponta** em sandbox: cartão de teste → webhook → status `pago` no banco → admin exibe
+- **GO-LIVE feito em 07/07/2026:** chave live em produção, webhook da conta oficial, banco zerado (registros de teste apagados), sessão `cs_live_` de verificação criada e expirada com sucesso
 
 ## ⏳ Pendências Fase 2
 
-- [ ] **Ativar Pix no Stripe** (dashboard → Settings → Payment methods). Para conta BR real é *invite-only* — solicitar acesso. Enquanto não ativo, opção Pix do formulário retorna erro.
-- [ ] **Parcelamento no Checkout:** a sessão aceita `installments.enabled`, mas o seletor de parcelas não apareceu no sandbox — verificar/habilitar "Parcelamento" nas configurações de formas de pagamento da conta.
-- [ ] **Go-live Stripe:** criar/ativar conta real (CNPJ do sindicato), trocar `STRIPE_SECRET_KEY`, recriar webhook (novo `STRIPE_WEBHOOK_SECRET`).
-- [ ] **Ativar o e-mail de confirmação (Resend):** código pronto; falta (1) criar conta gratuita em https://resend.com, (2) verificar o domínio sincidema.com.br (adicionar os registros DNS que o Resend pedir — o DNS é gerenciado pela Vercel), (3) criar API key e salvar como `RESEND_API_KEY` no Vercel. Opcional: `EMAIL_FROM` (padrão `SINCIDEMA <contato@sincidema.com.br>`). Sem a key, o pagamento confirma normalmente, só não envia e-mail.
-- [ ] **Limpar registros de teste** do banco antes do go-live (`DELETE FROM pagamentos; DELETE FROM filiados;`).
+- [ ] **Ativar Pix no Stripe** (dashboard → Settings → Payment methods). Conta BR é *invite-only*: solicitar acesso. Capacidade `pix_payments` ainda ausente na conta oficial (verificado 07/07/2026). Enquanto não ativo, opção Pix do formulário retorna erro.
+- [ ] **Parcelamento no Checkout:** a sessão aceita `installments.enabled`, mas o seletor de parcelas não apareceu no sandbox. Conferir/habilitar "Parcelamento" nas configurações de formas de pagamento da conta oficial e validar no primeiro pagamento real parcelado.
+- [ ] **Boleto:** capacidade `boleto_payments` está ativa na conta oficial; dá para oferecer como forma de pagamento futuramente se o sindicato quiser.
+- [ ] **Ativar o e-mail de confirmação (Resend):** código pronto; falta (1) criar conta gratuita em https://resend.com, (2) verificar o domínio sincidema.com.br (adicionar os registros DNS que o Resend pedir; o DNS é gerenciado pela Vercel), (3) criar API key e salvar como `RESEND_API_KEY` no Vercel. Opcional: `EMAIL_FROM` (padrão `SINCIDEMA <contato@sincidema.com.br>`). Sem a key, o pagamento confirma normalmente, só não envia e-mail.
+- [ ] **Acompanhar o primeiro pagamento real:** conferir no dashboard do Stripe (Developers → Webhooks) se a entrega do webhook retornou 200 e se o admin exibiu o pagamento como `pago`.
 
 ## 📞 Informações com placeholders (dados reais necessários)
 
