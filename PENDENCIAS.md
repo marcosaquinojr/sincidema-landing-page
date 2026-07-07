@@ -2,61 +2,43 @@
 
 ## 🌐 Deploy
 
-- **Repositório:** github.com/marcosaquinojr/sincidema-landing-page
+- **Repositório:** github.com/marcosaquinojr/sincidema-landing-page (push no `main` = deploy)
 - **Projeto Vercel:** `sincidema-landing-page` (team `marcosaknos-projects`)
-- **URL provisória:** https://sincidema-landing-page.vercel.app
-- **Domínio final:** https://sincidema.com.br (registrado na Hostinger)
-- **Status DNS:** ⏳ aguardando troca de nameservers
-  - Trocar `ns1.dns-parking.com` / `ns2.dns-parking.com` → `ns1.vercel-dns.com` / `ns2.vercel-dns.com`
-  - Painel Hostinger → Domínios → sincidema.com.br → DNS/Nameservers → Editar
-  - Propagação: 1–24h. Vercel emite SSL automaticamente quando detectar.
+- **Domínio:** https://sincidema.com.br ✅ NO AR (Hostinger → nameservers Vercel, SSL automático)
 
-## ✅ Implementado (Fase 1)
+## ✅ Implementado (Fase 1 — mai/2026)
 
 - Landing page (`index.html`) com CTAs apontando para `filiacao.html`
 - Formulário de filiação em 3 passos (`filiacao.html`):
   1. Dados pessoais (nome, CPF, data nascimento, e-mail, telefone)
   2. Dados profissionais e endereço (CRO/UF, local de trabalho, CEP com ViaCEP, endereço completo)
-  3. Forma de pagamento (Pix / cartão à vista / cartão parcelado)
+  3. Forma de pagamento (Pix / cartão à vista / cartão parcelado até 6x)
 - Validações cliente (CPF com dígito verificador, e-mail, telefone, CEP)
-- Auto-preenchimento de endereço via API ViaCEP
-- Página de confirmação pós-cadastro (`obrigado.html`) com protocolo
-- Persistência local (localStorage como rascunho; sessionStorage do último envio)
+- Página de confirmação pós-pagamento (`obrigado.html`)
+- Rascunho do formulário em localStorage
 
-## ⏳ Fase 2 — Backend e pagamento real
+## ✅ Implementado (Fase 2 — jul/2026): pagamento Stripe + Neon
 
-### Backend (Supabase)
-- [ ] Criar projeto no Supabase (supabase.com — plano grátis)
-- [ ] Rodar migration para criar tabelas:
-  - `associados` (cadastro + status: pendente_pagamento / ativo / expirado)
-  - `pagamentos` (vinculados ao associado, com asaas_id, valor, forma, parcelas, status)
-- [ ] Configurar RLS (Row Level Security) para proteger dados
-- [ ] Trocar persistência localStorage em `assets/js/filiacao.js` por insert no Supabase
-- [ ] Configurar trigger / Edge Function para enviar e-mail de confirmação (Resend ou SMTP)
+- **Modelo:** anuidade R$ 240 por **exercício anual** (competência = ano-calendário, válida até 31/12)
+- **Banco:** Neon Postgres `sincidema-db` (integração Vercel Marketplace, env `DATABASE_URL`)
+  - Tabelas `filiados` e `pagamentos` (schema em `db/schema.sql`)
+  - Índice único impede pagar duas vezes a mesma competência
+- **API (funções Vercel, runtime Node, Web handlers):**
+  - `api/checkout.js` — upsert filiado + pagamento pendente + sessão Stripe Checkout (Pix ou cartão; parcelado envia `installments.enabled`)
+  - `api/webhook.js` — eventos `checkout.session.*` marcam pago/falhou/expirado (assinatura verificada)
+  - `api/admin.js` — lista filiados + competências (Bearer token `ADMIN_TOKEN`)
+- **Admin:** `admin.html` (senha = `ADMIN_TOKEN` do Vercel env; badge por competência, busca)
+- **Webhook Stripe:** endpoint `we_1TqYzrDUREk3qUbH1lxAXEsd` → https://sincidema.com.br/api/webhook
+- **Env vars (Vercel):** `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET`, `ADMIN_TOKEN`, `SITE_URL`, `DATABASE_URL` (Neon)
+- **Testado ponta a ponta** em sandbox: cartão de teste → webhook → status `pago` no banco → admin exibe
 
-### Pagamento (PagSeguro)
-- [ ] Gerar **token de API PagSeguro** no painel (Integrações → Token de Segurança)
-- [ ] Definir ambiente: sandbox (testes) e produção
-- [ ] Criar Edge Function `criar-cobranca` no Supabase que:
-  - Recebe dados do associado
-  - Cria pedido (`POST https://api.pagseguro.com/orders`) com `payment_method` Pix ou cartão
-  - Retorna `qr_code` (Pix) ou `payment_url` (cartão)
-- [ ] Criar Edge Function `pagseguro-webhook` que:
-  - Recebe notificações de status (`POST` enviado pelo PagSeguro)
-  - Valida assinatura do webhook
-  - Atualiza status do associado para `ativo` quando confirmado
-  - Calcula `data_expiracao = data_pagamento + 365 dias`
-- [ ] Configurar URL de notificação no painel PagSeguro apontando para a Edge Function
-- [ ] **Atenção às taxas:** crédito ~3,99% à vista / ~4,99%+ parcelado; Pix 0,99%. Recebimento padrão D+14 (ou ativar antecipação automática)
+## ⏳ Pendências Fase 2
 
-### Configuração no código
-- [ ] Definir valor da anuidade (`VALOR_ANUIDADE` em `assets/js/filiacao.js`)
-- [ ] Definir limite máximo de parcelas (`MAX_PARCELAS`) e parcelas sem juros (`PARCELAS_SEM_JUROS`)
-- [ ] Adicionar variáveis de ambiente no Vercel + Supabase:
-  - `SUPABASE_URL`
-  - `SUPABASE_ANON_KEY`
-  - `PAGSEGURO_TOKEN` (somente no Supabase Edge Functions, NÃO no frontend)
-  - `PAGSEGURO_ENV` (`sandbox` ou `production`)
+- [ ] **Ativar Pix no Stripe** (dashboard → Settings → Payment methods). Para conta BR real é *invite-only* — solicitar acesso. Enquanto não ativo, opção Pix do formulário retorna erro.
+- [ ] **Parcelamento no Checkout:** a sessão aceita `installments.enabled`, mas o seletor de parcelas não apareceu no sandbox — verificar/habilitar "Parcelamento" nas configurações de formas de pagamento da conta.
+- [ ] **Go-live Stripe:** criar/ativar conta real (CNPJ do sindicato), trocar `STRIPE_SECRET_KEY`, recriar webhook (novo `STRIPE_WEBHOOK_SECRET`).
+- [ ] **E-mail de confirmação próprio** (opcional — o Stripe já envia recibo se configurado no dashboard).
+- [ ] **Limpar registros de teste** do banco antes do go-live (`DELETE FROM pagamentos; DELETE FROM filiados;`).
 
 ## 📞 Informações com placeholders (dados reais necessários)
 
@@ -70,7 +52,7 @@
 
 ## 🛠️ Ajustes técnicos / funcionais
 
-- [ ] **Favicon** — Não existe `<link rel="icon">`. Adicionar favicon com a identidade do sindicato.
+- [ ] **Favicon** — Não existe `<link rel="icon">`. Adicionar favicon com a identidade do sindicato (o 404 aparece no console).
 - [ ] **Meta tags Open Graph** — Falta `og:image`, `og:title`, `og:description`. Necessário para compartilhamento em WhatsApp/Instagram/Facebook.
 
 ## 🎨 Identidade visual
