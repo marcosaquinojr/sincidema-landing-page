@@ -5,7 +5,7 @@ export const sql = neon(process.env.DATABASE_URL);
 export const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 export const SITE_URL = process.env.SITE_URL || 'https://sincidema.com.br';
-export const MAX_PARCELAS = 6;
+export const MAX_PARCELAS = 12;
 
 // Categorias de filiação: valor da anuidade e meta da campanha de sindicalização
 export const CATEGORIAS = {

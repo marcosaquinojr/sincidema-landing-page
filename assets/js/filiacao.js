@@ -6,8 +6,8 @@
   // ====================================================================
   // Valor da anuidade em reais por categoria de filiação.
   var VALORES = { profissional: 240, estudante: 100 };
-  var MAX_PARCELAS = 6;              // limite no cartão parcelado
-  var PARCELAS_SEM_JUROS = 6;        // até quantas parcelas sem juros
+  var MAX_PARCELAS = 12;             // limite no cartão parcelado
+  var PARCELAS_SEM_JUROS = 12;       // até quantas parcelas sem juros
   var STORAGE_KEY = 'sincidema_filiacao_rascunho';
   // ====================================================================
 

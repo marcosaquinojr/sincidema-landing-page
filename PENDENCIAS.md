@@ -12,7 +12,7 @@
 - Formulário de filiação em 3 passos (`filiacao.html`):
   1. Dados pessoais (nome, CPF, data nascimento, e-mail, telefone)
   2. Dados profissionais e endereço (CRO/UF, local de trabalho, CEP com ViaCEP, endereço completo)
-  3. Forma de pagamento (Pix / cartão à vista / cartão parcelado até 6x)
+  3. Forma de pagamento (Pix / cartão à vista / cartão parcelado até 12x)
 - Validações cliente (CPF com dígito verificador, e-mail, telefone, CEP)
 - Página de confirmação pós-pagamento (`obrigado.html`)
 - Rascunho do formulário em localStorage
