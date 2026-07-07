@@ -1,4 +1,5 @@
 import { sql, stripe, json } from './_lib.js';
+import { enviarConfirmacaoPagamento } from './_email.js';
 
 // Webhook Stripe — confirma/atualiza o status do pagamento da anuidade.
 // Eventos: checkout.session.completed | .async_payment_succeeded | .async_payment_failed | .expired
@@ -35,12 +36,23 @@ export async function POST(request) {
 }
 
 async function marcarPago(session) {
-  await sql`
+  const [pago] = await sql`
     UPDATE pagamentos SET
       status = 'pago',
       pago_em = now(),
       stripe_payment_intent = ${typeof session.payment_intent === 'string' ? session.payment_intent : null}
-    WHERE stripe_session_id = ${session.id} AND status <> 'pago'`;
+    WHERE stripe_session_id = ${session.id} AND status <> 'pago'
+    RETURNING filiado_id, competencia, categoria, valor_centavos, metodo, parcelas`;
+
+  // E-mail de confirmação (só na primeira confirmação; falha no envio não derruba o webhook)
+  if (pago) {
+    try {
+      const [filiado] = await sql`SELECT nome, email FROM filiados WHERE id = ${pago.filiado_id}`;
+      if (filiado) await enviarConfirmacaoPagamento({ ...pago, ...filiado });
+    } catch (err) {
+      console.error('Falha ao enviar e-mail de confirmação:', err.message);
+    }
+  }
 }
 
 async function atualizar(sessionId, status) {

@@ -12,7 +12,7 @@ export async function GET(request) {
   const filtro = q ? `%${q}%` : null;
 
   const rows = await sql`
-    SELECT f.id, f.nome, f.cpf, f.email, f.telefone, f.cro, f.cro_uf,
+    SELECT f.id, f.nome, f.cpf, f.categoria, f.email, f.telefone, f.cro, f.cro_uf,
            f.cidade, f.uf, f.criado_em,
            COALESCE(json_agg(json_build_object(
              'competencia', p.competencia,

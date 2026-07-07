@@ -920,6 +920,97 @@ section {
 /* ========================================
    FILIE-SE
    ======================================== */
+/* META DE SINDICALIZAÇÃO — contador regressivo da campanha */
+.meta {
+  background: var(--dark-900);
+  padding: 96px 0;
+  position: relative;
+  overflow: hidden;
+}
+.meta::before {
+  content: '';
+  position: absolute;
+  top: -120px; right: -120px;
+  width: 420px; height: 420px;
+  background: radial-gradient(circle, rgba(220,38,38,0.22), transparent 70%);
+  pointer-events: none;
+}
+.meta__header { text-align: center; max-width: 640px; margin: 0 auto 56px; }
+.meta__label {
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--red-500);
+  font-size: 12px;
+  margin-bottom: 14px;
+}
+.meta__title {
+  font-family: 'Fraunces', serif;
+  font-weight: 700;
+  font-size: clamp(28px, 3.5vw, 42px);
+  color: var(--white);
+  line-height: 1.15;
+  margin-bottom: 14px;
+}
+.meta__title em { font-style: italic; color: var(--red-500); }
+.meta__subtitle { font-size: 16px; color: rgba(255,255,255,0.6); line-height: 1.7; }
+.meta__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  max-width: 840px;
+  margin: 0 auto 40px;
+}
+.meta__card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 20px;
+  padding: 40px 32px;
+  text-align: center;
+}
+.meta__kicker {
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: rgba(255,255,255,0.55);
+  margin-bottom: 16px;
+}
+.meta__count {
+  font-family: 'Fraunces', serif;
+  font-weight: 800;
+  font-size: clamp(52px, 7vw, 76px);
+  color: var(--white);
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+.meta__count-label {
+  font-size: 15px;
+  color: rgba(255,255,255,0.65);
+  margin: 10px 0 24px;
+}
+.meta__bar {
+  height: 8px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 999px;
+  overflow: hidden;
+  margin-bottom: 12px;
+}
+.meta__bar span {
+  display: block;
+  height: 100%;
+  width: 0;
+  background: linear-gradient(90deg, var(--red-700), var(--red-500));
+  border-radius: 999px;
+  transition: width 1.6s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+.meta__sub { font-size: 13px; color: rgba(255,255,255,0.45); }
+.meta__cta-row { text-align: center; }
+@media (max-width: 720px) {
+  .meta { padding: 72px 0; }
+  .meta__grid { grid-template-columns: 1fr; max-width: 420px; }
+}
+
 .filiese {
   background: var(--off-white);
 }
@@ -1851,6 +1942,39 @@ section {
   </div>
 </section>
 
+<!-- META DE SINDICALIZAÇÃO -->
+<section class="meta" id="meta">
+  <div class="container">
+    <div class="meta__header">
+      <p class="meta__label reveal">Campanha de sindicaliza&ccedil;&atilde;o <span class="js-ano">2026</span></p>
+      <h2 class="meta__title reveal">A cada filia&ccedil;&atilde;o, <em>um a menos</em> para a meta</h2>
+      <p class="meta__subtitle reveal">
+        Quanto mais fortes somos em n&uacute;mero, mais forte &eacute; a nossa voz.
+        Veja quantos ainda faltam para alcan&ccedil;armos a meta deste ano — e fa&ccedil;a o contador diminuir.
+      </p>
+    </div>
+    <div class="meta__grid">
+      <div class="meta__card reveal">
+        <div class="meta__kicker">Profissionais</div>
+        <div class="meta__count" id="metaProfCount" data-meta="2000">2.000</div>
+        <div class="meta__count-label">faltam para a meta</div>
+        <div class="meta__bar"><span id="metaProfBar"></span></div>
+        <div class="meta__sub" id="metaProfSub">Meta: 2.000 cirurgi&otilde;es-dentistas sindicalizados</div>
+      </div>
+      <div class="meta__card reveal">
+        <div class="meta__kicker">Estudantes</div>
+        <div class="meta__count" id="metaEstCount" data-meta="1000">1.000</div>
+        <div class="meta__count-label">faltam para a meta</div>
+        <div class="meta__bar"><span id="metaEstBar"></span></div>
+        <div class="meta__sub" id="metaEstSub">Meta: 1.000 estudantes sindicalizados</div>
+      </div>
+    </div>
+    <div class="meta__cta-row reveal">
+      <a href="filiacao.html" class="btn btn--primary">Quero fazer parte</a>
+    </div>
+  </div>
+</section>
+
 <!-- FILIE-SE -->
 <section class="filiese" id="filiese">
   <div class="container">
@@ -1888,7 +2012,7 @@ section {
       <div class="filiese__form-card reveal">
         <img src="https://images.unsplash.com/photo-1588776814546-daab30f310ce?w=600&q=80&auto=format&fit=crop" alt="Equipe odontol&oacute;gica" class="filiese__form-img" loading="lazy">
         <h3 class="filiese__form-title">Filia&ccedil;&atilde;o <span class="js-ano">2026</span></h3>
-        <p class="filiese__form-subtitle">Cadastro em 3 passos. Pague via Pix, cart&atilde;o &agrave; vista ou parcelado em at&eacute; 6x.</p>
+        <p class="filiese__form-subtitle">Para profissionais e estudantes de Odontologia. Cadastro em 3 passos — pague via Pix, cart&atilde;o &agrave; vista ou parcelado em at&eacute; 6x.</p>
         <ul class="filiese__cta-list">
           <li><span class="filiese__cta-bullet">1</span> Preencha seus dados pessoais</li>
           <li><span class="filiese__cta-bullet">2</span> Informe CRO e endere&ccedil;o</li>
@@ -2151,6 +2275,58 @@ document.querySelectorAll('a[href^="#"]').forEach(function(link) {
   filieseObs.observe(filiese);
 })();
 
+/* META — contador regressivo da campanha de sindicalização */
+(function() {
+  var section = document.getElementById('meta');
+  if (!section) return;
+
+  var alvos = {
+    profissional: { count: 'metaProfCount', bar: 'metaProfBar' },
+    estudante:    { count: 'metaEstCount',  bar: 'metaEstBar' }
+  };
+  var dados = null;
+
+  function fmt(n) { return n.toLocaleString('pt-BR'); }
+
+  function animar() {
+    Object.keys(alvos).forEach(function(cat) {
+      var el = document.getElementById(alvos[cat].count);
+      var bar = document.getElementById(alvos[cat].bar);
+      var meta = parseInt(el.dataset.meta, 10);
+      var restantes = dados && dados[cat] ? dados[cat].restantes : meta;
+      var pagos = dados && dados[cat] ? dados[cat].pagos : 0;
+
+      bar.style.width = Math.min((pagos / meta) * 100, 100) + '%';
+
+      var inicio = null, duracao = 1600;
+      function frame(ts) {
+        if (!inicio) inicio = ts;
+        var p = Math.min((ts - inicio) / duracao, 1);
+        var eased = 1 - Math.pow(1 - p, 3);
+        el.textContent = fmt(Math.round(meta - (meta - restantes) * eased));
+        if (p < 1) requestAnimationFrame(frame);
+      }
+      requestAnimationFrame(frame);
+    });
+  }
+
+  var disparado = false;
+  var obs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting && !disparado) {
+        disparado = true;
+        animar();
+        obs.disconnect();
+      }
+    });
+  }, { threshold: 0.3 });
+
+  fetch('/api/stats')
+    .then(function(r) { return r.json(); })
+    .then(function(d) { dados = d; })
+    .catch(function() { /* sem API (ex.: file://): mantém as metas cheias */ })
+    .then(function() { obs.observe(section); });
+})();
 </script>
 <script>document.querySelectorAll('.js-ano').forEach(function(el){el.textContent=new Date().getFullYear();});</script>
 

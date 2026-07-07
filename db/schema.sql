@@ -4,6 +4,7 @@ CREATE TABLE IF NOT EXISTS filiados (
   id            SERIAL PRIMARY KEY,
   nome          TEXT NOT NULL,
   cpf           TEXT NOT NULL UNIQUE,          -- somente dígitos
+  categoria     TEXT NOT NULL DEFAULT 'profissional',  -- profissional | estudante
   data_nascimento DATE,
   email         TEXT NOT NULL,
   telefone      TEXT,
@@ -25,6 +26,7 @@ CREATE TABLE IF NOT EXISTS pagamentos (
   id                 SERIAL PRIMARY KEY,
   filiado_id         INTEGER NOT NULL REFERENCES filiados(id),
   competencia        INTEGER NOT NULL,          -- ano-calendário que o pagamento quita (ex.: 2026)
+  categoria          TEXT NOT NULL DEFAULT 'profissional',  -- profissional (R$240) | estudante (R$100)
   valor_centavos     INTEGER NOT NULL,
   status             TEXT NOT NULL DEFAULT 'pendente',  -- pendente | pago | falhou | expirado
   metodo             TEXT,                      -- pix | card (preenchido pelo webhook)

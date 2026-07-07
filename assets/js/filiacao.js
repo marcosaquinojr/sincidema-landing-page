@@ -4,9 +4,8 @@
   // ====================================================================
   // CONFIG — ajuste estes valores quando o sindicato definir
   // ====================================================================
-  // Defina o valor da anuidade em reais. Deixe 0 para ocultar o valor
-  // e exibir "Valor a confirmar" no card de pagamento.
-  var VALOR_ANUIDADE = 240;          // R$ 240,00 — valor integral da sindicalização
+  // Valor da anuidade em reais por categoria de filiação.
+  var VALORES = { profissional: 240, estudante: 100 };
   var MAX_PARCELAS = 6;              // limite no cartão parcelado
   var PARCELAS_SEM_JUROS = 6;        // até quantas parcelas sem juros
   var STORAGE_KEY = 'sincidema_filiacao_rascunho';
@@ -23,6 +22,14 @@
   var payInfoValue = document.getElementById('payInfoValue');
   var summaryLines = document.getElementById('summaryLines');
   var currentStep = 1;
+
+  function categoriaAtual() {
+    var radio = form.querySelector('input[name="categoria"]:checked');
+    return radio ? radio.value : 'profissional';
+  }
+  function valorAnuidade() {
+    return VALORES[categoriaAtual()] || VALORES.profissional;
+  }
 
   // -------------------- Helpers --------------------
   function $(sel, ctx) { return (ctx || document).querySelector(sel); }
@@ -186,27 +193,52 @@
 
   // -------------------- Pagamento --------------------
   function buildParcelas() {
+    var valor = valorAnuidade();
+    var selecionado = parcelasSelect.value;
     parcelasSelect.innerHTML = '<option value="">Selecione…</option>';
     for (var i = 2; i <= MAX_PARCELAS; i++) {
       var opt = document.createElement('option');
       opt.value = String(i);
-      var label = i + 'x';
-      if (VALOR_ANUIDADE > 0) {
-        label += ' de ' + formatBRL(VALOR_ANUIDADE / i);
-        label += i <= PARCELAS_SEM_JUROS ? ' (sem juros)' : ' (com juros)';
-      }
+      var label = i + 'x de ' + formatBRL(valor / i);
+      label += i <= PARCELAS_SEM_JUROS ? ' (sem juros)' : ' (com juros)';
       opt.textContent = label;
       parcelasSelect.appendChild(opt);
     }
+    if (selecionado) parcelasSelect.value = selecionado;
     maxParcelasLabel.textContent = MAX_PARCELAS;
   }
 
   function updatePayInfo() {
-    if (VALOR_ANUIDADE > 0) {
-      payInfoText.textContent = 'Valor da anuidade ' + new Date().getFullYear() + '.';
-      payInfoValue.style.display = 'inline-block';
-      payInfoValue.textContent = formatBRL(VALOR_ANUIDADE);
+    var rotulo = categoriaAtual() === 'estudante' ? 'estudante' : 'profissional';
+    payInfoText.textContent = 'Valor da anuidade ' + new Date().getFullYear() + ' (' + rotulo + ').';
+    payInfoValue.style.display = 'inline-block';
+    payInfoValue.textContent = formatBRL(valorAnuidade());
+  }
+
+  // Estudante ainda não tem CRO: campo vira opcional e o local de trabalho vira faculdade
+  function applyCategoria() {
+    var estudante = categoriaAtual() === 'estudante';
+    var cro = document.getElementById('cro');
+    var croUf = document.getElementById('cro_uf');
+    var croLabel = document.querySelector('label[for="cro"]');
+    var localLabel = document.querySelector('label[for="local_trabalho"]');
+    var localInput = document.getElementById('local_trabalho');
+
+    cro.required = !estudante;
+    croUf.required = !estudante;
+    if (estudante) {
+      setInvalid(cro, false);
+      setInvalid(croUf, false);
     }
+    croLabel.textContent = estudante ? 'CRO (opcional para estudante)' : 'CRO (número de registro)';
+    localLabel.textContent = estudante ? 'Faculdade / instituição de ensino' : 'Local de trabalho / instituição';
+    localInput.placeholder = estudante
+      ? 'Ex.: UFMA — Curso de Odontologia'
+      : 'Ex.: Clínica OdontoLuís — São Luís/MA';
+
+    buildParcelas();
+    updatePayInfo();
+    updateSummary();
   }
 
   form.addEventListener('change', function (e) {
@@ -214,6 +246,7 @@
       parcelasBox.classList.toggle('is-visible', e.target.value === 'credito_parcelado');
       updateSummary();
     }
+    if (e.target.name === 'categoria') applyCategoria();
     if (e.target.id === 'parcelas') updateSummary();
   });
 
@@ -227,15 +260,14 @@
       credito_parcelado: 'Cartão de crédito parcelado' + (data.parcelas ? ' em ' + data.parcelas + 'x' : '')
     }[forma] || '— selecione acima —';
 
+    var estudante = categoriaAtual() === 'estudante';
     var html =
-      '<strong>' + (data.nome || '—') + '</strong><br>' +
-      'CPF ' + (data.cpf || '—') + ' · CRO ' + (data.cro || '—') + '/' + (data.cro_uf || '—') + '<br>' +
+      '<strong>' + (data.nome || '—') + '</strong> · ' + (estudante ? 'Estudante' : 'Cirurgião-dentista') + '<br>' +
+      'CPF ' + (data.cpf || '—') +
+      (estudante && !data.cro ? '' : ' · CRO ' + (data.cro || '—') + '/' + (data.cro_uf || '—')) + '<br>' +
       (data.email || '—') + ' · ' + (data.telefone || '—') + '<br>' +
-      'Forma: <strong>' + formaLabel + '</strong>';
-
-    if (VALOR_ANUIDADE > 0) {
-      html += '<br>Valor: <strong>' + formatBRL(VALOR_ANUIDADE) + '</strong>';
-    }
+      'Forma: <strong>' + formaLabel + '</strong>' +
+      '<br>Valor: <strong>' + formatBRL(valorAnuidade()) + '</strong>';
     summaryLines.innerHTML = html;
   }
 
@@ -308,9 +340,8 @@
   });
 
   // -------------------- Boot --------------------
-  buildParcelas();
-  updatePayInfo();
   loadDraft();
+  applyCategoria();
 
   // Salva rascunho ao sair
   window.addEventListener('beforeunload', saveDraft);

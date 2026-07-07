@@ -298,6 +298,12 @@ button { font-family: inherit; }
   grid-template-columns: 1fr;
   gap: 10px;
 }
+.pay-options--categoria { grid-template-columns: 1fr 1fr; margin-bottom: 20px; }
+.pay-option__tag {
+  font-weight: 700;
+  font-size: 13px;
+  color: var(--red-700);
+}
 .pay-option {
   position: relative;
   display: flex;
@@ -346,15 +352,18 @@ button { font-family: inherit; }
 }
 .pay-option__body { flex: 1; }
 .pay-option__title {
+  display: block;
   font-weight: 600;
   font-size: 15px;
   color: var(--dark-900);
   margin-bottom: 2px;
 }
 .pay-option__desc {
+  display: block;
   font-size: 13px;
   color: var(--gray-500);
 }
+.pay-option__tag { display: block; margin-top: 4px; }
 .pay-option:has(input:checked) {
   border-color: var(--red-600);
   background: var(--red-50);
@@ -447,6 +456,7 @@ button { font-family: inherit; }
 /* RESPONSIVE */
 @media (max-width: 640px) {
   .row, .row--3, .row--cep, .row--addr, .row--city { grid-template-columns: 1fr; }
+  .pay-options--categoria { grid-template-columns: 1fr; }
   .card { padding: 24px 20px; }
   .stepper__label { display: none; }
   .stepper__line { width: 24px; }
@@ -501,6 +511,27 @@ button { font-family: inherit; }
         <section class="step is-active" data-step="1">
           <h2 class="card__title">Seus dados</h2>
           <p class="card__subtitle">Informações pessoais para o cadastro associativo.</p>
+
+          <div class="pay-options pay-options--categoria" role="radiogroup" aria-label="Categoria de filiação">
+            <label class="pay-option">
+              <input type="radio" name="categoria" value="profissional" checked>
+              <span class="pay-option__check"></span>
+              <span class="pay-option__body">
+                <span class="pay-option__title">Cirurgião-dentista</span>
+                <span class="pay-option__desc">Profissional com CRO ativo</span>
+                <span class="pay-option__tag">Anuidade R$ 240</span>
+              </span>
+            </label>
+            <label class="pay-option">
+              <input type="radio" name="categoria" value="estudante">
+              <span class="pay-option__check"></span>
+              <span class="pay-option__body">
+                <span class="pay-option__title">Estudante</span>
+                <span class="pay-option__desc">Graduando em Odontologia</span>
+                <span class="pay-option__tag">Anuidade R$ 100</span>
+              </span>
+            </label>
+          </div>
 
           <div class="field">
             <label class="field__label" for="nome">Nome completo</label>

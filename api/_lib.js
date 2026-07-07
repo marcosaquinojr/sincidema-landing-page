@@ -5,8 +5,13 @@ export const sql = neon(process.env.DATABASE_URL);
 export const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 export const SITE_URL = process.env.SITE_URL || 'https://sincidema.com.br';
-export const VALOR_ANUIDADE_CENTAVOS = 24000; // R$ 240,00
 export const MAX_PARCELAS = 6;
+
+// Categorias de filiação: valor da anuidade e meta da campanha de sindicalização
+export const CATEGORIAS = {
+  profissional: { valor_centavos: 24000, meta: 2000, rotulo: 'Profissional' }, // R$ 240,00
+  estudante:    { valor_centavos: 10000, meta: 1000, rotulo: 'Estudante' },    // R$ 100,00
+};
 
 // Competência = ano-calendário vigente em São Paulo (exercício anual, não 12 meses corridos)
 export function competenciaAtual() {

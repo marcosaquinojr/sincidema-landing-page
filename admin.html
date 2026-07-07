@@ -73,6 +73,7 @@ tr:hover td { background:var(--gray-100); }
       <div class="stats">
         <span>Filiados: <strong id="statTotal">–</strong></span>
         <span>· Pagos <span id="anoAtual"></span>: <strong id="statPagos">–</strong></span>
+        <span>(<strong id="statProf">–</strong> prof. · <strong id="statEst">–</strong> est.)</span>
       </div>
     </div>
     <div class="tbl-scroll">
@@ -114,21 +115,25 @@ tr:hover td { background:var(--gray-100); }
     loginView.classList.add('hidden');
     appView.classList.remove('hidden');
     document.getElementById('statTotal').textContent = data.total;
-    var pagosAno = 0;
+    var pagosAno = 0, pagosProf = 0, pagosEst = 0;
     tbody.innerHTML = '';
     if (!data.filiados.length) {
       tbody.innerHTML = '<tr><td colspan="5" class="vazio">Nenhum filiado encontrado.</td></tr>';
     }
     data.filiados.forEach(function (f) {
       var badges = f.pagamentos.map(function (p) {
-        if (p.competencia === anoAtual && p.status === 'pago') pagosAno++;
+        if (p.competencia === anoAtual && p.status === 'pago') {
+          pagosAno++;
+          if (p.categoria === 'estudante') pagosEst++; else pagosProf++;
+        }
         return '<span class="badge badge--' + esc(p.status) + '">' + p.competencia + ' · ' + esc(p.status) +
           (p.status === 'pago' && p.metodo === 'card' && p.parcelas > 1 ? ' ' + p.parcelas + 'x' : '') +
           (p.status === 'pago' && p.metodo === 'pix' ? ' pix' : '') + '</span>';
       }).join('') || '<span class="sub">sem pagamentos</span>';
+      var catLabel = f.categoria === 'estudante' ? ' · Estudante' : '';
       var tr = document.createElement('tr');
       tr.innerHTML =
-        '<td><div class="nome">' + esc(f.nome) + '</div><div class="sub">' + fmtCPF(f.cpf) + '</div></td>' +
+        '<td><div class="nome">' + esc(f.nome) + '</div><div class="sub">' + fmtCPF(f.cpf) + catLabel + '</div></td>' +
         '<td><div>' + esc(f.email) + '</div><div class="sub">' + esc(f.telefone || '—') + '</div></td>' +
         '<td>' + esc(f.cro || '—') + (f.cro_uf ? '/' + esc(f.cro_uf) : '') + '</td>' +
         '<td>' + badges + '</td>' +
@@ -136,6 +141,8 @@ tr:hover td { background:var(--gray-100); }
       tbody.appendChild(tr);
     });
     document.getElementById('statPagos').textContent = pagosAno;
+    document.getElementById('statProf').textContent = pagosProf;
+    document.getElementById('statEst').textContent = pagosEst;
   }
 
   function entrar() {

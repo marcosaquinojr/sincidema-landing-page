@@ -1,6 +1,6 @@
 import {
   sql, stripe, json, validaCPF, competenciaAtual,
-  SITE_URL, VALOR_ANUIDADE_CENTAVOS, MAX_PARCELAS,
+  SITE_URL, CATEGORIAS, MAX_PARCELAS,
 } from './_lib.js';
 
 const FORMAS = ['pix', 'credito_avista', 'credito_parcelado'];
@@ -14,6 +14,8 @@ export async function POST(request) {
   const nome = String(d.nome || '').trim();
   const email = String(d.email || '').trim().toLowerCase();
   const forma = d.forma_pagamento;
+  const categoria = d.categoria === 'estudante' ? 'estudante' : 'profissional';
+  const valorCentavos = CATEGORIAS[categoria].valor_centavos;
 
   if (!nome || nome.length < 5) return json({ error: 'Nome inválido' }, 400);
   if (!validaCPF(cpf)) return json({ error: 'CPF inválido' }, 400);
@@ -31,14 +33,14 @@ export async function POST(request) {
   const competencia = competenciaAtual();
 
   const [filiado] = await sql`
-    INSERT INTO filiados (nome, cpf, data_nascimento, email, telefone, cro, cro_uf,
+    INSERT INTO filiados (nome, cpf, categoria, data_nascimento, email, telefone, cro, cro_uf,
                           local_trabalho, cep, logradouro, numero, complemento, bairro, cidade, uf)
-    VALUES (${nome}, ${cpf}, ${d.data_nascimento || null}, ${email}, ${d.telefone || null},
+    VALUES (${nome}, ${cpf}, ${categoria}, ${d.data_nascimento || null}, ${email}, ${d.telefone || null},
             ${d.cro || null}, ${d.cro_uf || null}, ${d.local_trabalho || null},
             ${d.cep || null}, ${d.rua || null}, ${d.numero || null}, ${d.complemento || null},
             ${d.bairro || null}, ${d.cidade || null}, ${d.uf || null})
     ON CONFLICT (cpf) DO UPDATE SET
-      nome = EXCLUDED.nome, data_nascimento = EXCLUDED.data_nascimento,
+      nome = EXCLUDED.nome, categoria = EXCLUDED.categoria, data_nascimento = EXCLUDED.data_nascimento,
       email = EXCLUDED.email, telefone = EXCLUDED.telefone,
       cro = EXCLUDED.cro, cro_uf = EXCLUDED.cro_uf, local_trabalho = EXCLUDED.local_trabalho,
       cep = EXCLUDED.cep, logradouro = EXCLUDED.logradouro, numero = EXCLUDED.numero,
@@ -54,8 +56,8 @@ export async function POST(request) {
   }
 
   const [pagamento] = await sql`
-    INSERT INTO pagamentos (filiado_id, competencia, valor_centavos, parcelas, metodo)
-    VALUES (${filiado.id}, ${competencia}, ${VALOR_ANUIDADE_CENTAVOS}, ${parcelas},
+    INSERT INTO pagamentos (filiado_id, competencia, categoria, valor_centavos, parcelas, metodo)
+    VALUES (${filiado.id}, ${competencia}, ${categoria}, ${valorCentavos}, ${parcelas},
             ${forma === 'pix' ? 'pix' : 'card'})
     RETURNING id`;
 
@@ -64,6 +66,7 @@ export async function POST(request) {
     filiado_id: String(filiado.id),
     cpf,
     competencia: String(competencia),
+    categoria,
     forma_pagamento: forma,
     parcelas: String(parcelas),
   };
@@ -77,9 +80,9 @@ export async function POST(request) {
       quantity: 1,
       price_data: {
         currency: 'brl',
-        unit_amount: VALOR_ANUIDADE_CENTAVOS,
+        unit_amount: valorCentavos,
         product_data: {
-          name: `Anuidade SINCIDEMA ${competencia}`,
+          name: `Anuidade SINCIDEMA ${competencia} — ${CATEGORIAS[categoria].rotulo}`,
           description: `Sindicalização exercício ${competencia} (válida até 31/12/${competencia})`,
         },
       },
