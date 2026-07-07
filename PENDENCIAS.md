@@ -40,10 +40,11 @@
 
 ## ⏳ Pendências Fase 2
 
-- [ ] **Ativar Pix no Stripe** (dashboard → Settings → Payment methods). Conta BR é *invite-only*: solicitar acesso. Capacidade `pix_payments` ainda ausente na conta oficial (verificado 07/07/2026). Enquanto não ativo, opção Pix do formulário retorna erro.
+- [ ] **Ativar Pix no Stripe** (dashboard → Settings → Payment methods). Conta BR é *invite-only*: solicitar acesso. Capacidade `pix_payments` ainda ausente na conta oficial (verificado 07/07/2026). A opção Pix do formulário está **desabilitada com selo "Em breve"**; quando o Stripe liberar, reabilitar em `filiacao.html` (remover `disabled` do radio e a classe `pay-option--disabled`, devolver o texto original) e ajustar o subtítulo do card Filie-se na landing.
 - [ ] **Parcelamento no Checkout:** a sessão aceita `installments.enabled`, mas o seletor de parcelas não apareceu no sandbox. Conferir/habilitar "Parcelamento" nas configurações de formas de pagamento da conta oficial e validar no primeiro pagamento real parcelado.
 - [ ] **Boleto:** capacidade `boleto_payments` está ativa na conta oficial; dá para oferecer como forma de pagamento futuramente se o sindicato quiser.
-- [ ] **Ativar o e-mail de confirmação (Resend):** código pronto; falta (1) criar conta gratuita em https://resend.com, (2) verificar o domínio sincidema.com.br (adicionar os registros DNS que o Resend pedir; o DNS é gerenciado pela Vercel), (3) criar API key e salvar como `RESEND_API_KEY` no Vercel. Opcional: `EMAIL_FROM` (padrão `SINCIDEMA <contato@sincidema.com.br>`). Sem a key, o pagamento confirma normalmente, só não envia e-mail.
+- [x] **E-mail de confirmação (Resend) ATIVO (07/07/2026):** conta no Gmail pessoal do Marcos, domínio sincidema.com.br registrado no Resend (id `87ed396e-e8ce-4fe8-a065-19edd4e5308a`), registros DKIM/SPF/MX adicionados no DNS da Vercel via API REST (CLI `vercel dns add` dá permission_denied; usar API com `?slug=marcosaknos-projects`), `RESEND_API_KEY` em production. Remetente: `SINCIDEMA <contato@sincidema.com.br>` (padrão no código; sobrescreve com env `EMAIL_FROM`).
+- [ ] **Caixa de entrada do sindicato** (receber e-mails em contato@sincidema.com.br): Resend só envia. Marcos vai escolher entre Zoho Mail (caixa real, grátis até 5 usuários) ou ImprovMX (encaminhamento pro Gmail). Depois de criar a conta, adicionar os registros MX no DNS da Vercel.
 - [ ] **Acompanhar o primeiro pagamento real:** conferir no dashboard do Stripe (Developers → Webhooks) se a entrega do webhook retornou 200 e se o admin exibiu o pagamento como `pago`.
 
 ## 📞 Informações com placeholders (dados reais necessários)
