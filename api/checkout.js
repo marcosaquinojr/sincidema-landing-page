@@ -89,8 +89,8 @@ export async function POST(request) {
     }],
     metadata,
     payment_intent_data: { metadata },
-    success_url: `${SITE_URL}/obrigado.html?session_id={CHECKOUT_SESSION_ID}`,
-    cancel_url: `${SITE_URL}/filiacao.html`,
+    success_url: `${SITE_URL}/obrigado?session_id={CHECKOUT_SESSION_ID}`,
+    cancel_url: `${SITE_URL}/filiacao`,
   };
   if (forma === 'credito_parcelado') {
     params.payment_method_options = { card: { installments: { enabled: true } } };
