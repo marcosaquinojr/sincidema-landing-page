@@ -305,7 +305,7 @@
         if (!el) return;
         if (el.type === 'radio') {
           var match = form.querySelector('[name="' + k + '"][value="' + data[k] + '"]');
-          if (match) match.checked = true;
+          if (match && !match.disabled) match.checked = true;
         } else {
           el.value = data[k];
         }
