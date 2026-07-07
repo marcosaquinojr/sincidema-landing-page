@@ -44,13 +44,13 @@
 - [ ] **Parcelamento no Checkout:** a sessão aceita `installments.enabled`, mas o seletor de parcelas não apareceu no sandbox. Conferir/habilitar "Parcelamento" nas configurações de formas de pagamento da conta oficial e validar no primeiro pagamento real parcelado.
 - [ ] **Boleto:** capacidade `boleto_payments` está ativa na conta oficial; dá para oferecer como forma de pagamento futuramente se o sindicato quiser.
 - [x] **E-mail de confirmação (Resend) ATIVO (07/07/2026):** conta no Gmail pessoal do Marcos, domínio sincidema.com.br registrado no Resend (id `87ed396e-e8ce-4fe8-a065-19edd4e5308a`), registros DKIM/SPF/MX adicionados no DNS da Vercel via API REST (CLI `vercel dns add` dá permission_denied; usar API com `?slug=marcosaknos-projects`), `RESEND_API_KEY` em production. Remetente: `SINCIDEMA <contato@sincidema.com.br>` (padrão no código; sobrescreve com env `EMAIL_FROM`).
-- [ ] **Caixa de entrada do sindicato** (receber e-mails em contato@sincidema.com.br): Resend só envia. Marcos vai escolher entre Zoho Mail (caixa real, grátis até 5 usuários) ou ImprovMX (encaminhamento pro Gmail). Depois de criar a conta, adicionar os registros MX no DNS da Vercel.
+- [x] **Caixa de entrada do sindicato ATIVA (07/07/2026):** Zoho Mail plano gratuito (login = Gmail pessoal do Marcos; signup direto: mail.zoho.com/signup?type=org&plan=free). Domínio verificado (TXT zb51978995), MX mx/mx2/mx3.zoho.com, SPF `v=spf1 include:zohomail.com ~all` no raiz e DKIM `zmail._domainkey`, tudo no DNS da Vercel via API. Acesso: webmail mail.zoho.com ou app Zoho Mail (plano free não tem IMAP/POP). Caixa: contato@sincidema.com.br.
 - [ ] **Acompanhar o primeiro pagamento real:** conferir no dashboard do Stripe (Developers → Webhooks) se a entrega do webhook retornou 200 e se o admin exibiu o pagamento como `pago`.
 
 ## 📞 Informações com placeholders (dados reais necessários)
 
 - [x] **Telefone / WhatsApp** — `(98) 98478-5809` ✅ aplicado em todos os pontos (card contato, FAB WhatsApp, página obrigado)
-- [ ] **E-mail** — `contato@sincidema.com.br` — confirmar se o endereço existe e está ativo.
+- [x] **E-mail** — `contato@sincidema.com.br` ✅ existe e está ativo (Zoho Mail, 07/07/2026).
 - [ ] **Endereço** — `Rua Sotero dos Reis, 111, Vila Bessa, São Luís/MA, CEP 65.015-480` — validar.
 - [ ] **CNPJ** — `23.614.399/0001-04` — confirmar se é o correto.
 - [ ] **Valores de piso salarial** — R$ 5.430 (MA), R$ 5.825 (São Luís), R$ 5.709 (média MA), R$ 6.121 (média SLZ) — validar/atualizar com dados da última convenção coletiva.
