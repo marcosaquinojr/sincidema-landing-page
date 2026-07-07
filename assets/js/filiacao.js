@@ -204,7 +204,7 @@
 
   function updatePayInfo() {
     if (VALOR_ANUIDADE > 0) {
-      payInfoText.textContent = 'Valor da anuidade 2026.';
+      payInfoText.textContent = 'Valor da anuidade ' + new Date().getFullYear() + '.';
       payInfoValue.style.display = 'inline-block';
       payInfoValue.textContent = formatBRL(VALOR_ANUIDADE);
     }

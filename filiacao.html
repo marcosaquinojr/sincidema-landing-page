@@ -472,7 +472,7 @@ button { font-family: inherit; }
 <main class="main">
   <div class="wrap">
     <div class="page-header">
-      <p class="page-header__label">Filiação 2026</p>
+      <p class="page-header__label">Filiação <span class="js-ano">2026</span></p>
       <h1 class="page-header__title">Filie-se ao SINCIDEMA</h1>
       <p class="page-header__text">Preencha em 3 passos e escolha como pagar.</p>
     </div>
@@ -637,14 +637,14 @@ button { font-family: inherit; }
         <!-- STEP 3: PAGAMENTO -->
         <section class="step" data-step="3">
           <h2 class="card__title">Pagamento</h2>
-          <p class="card__subtitle">Escolha como pagar sua anuidade 2026, válida até 31/12/2026.</p>
+          <p class="card__subtitle">Escolha como pagar sua anuidade <span class="js-ano">2026</span>, válida até 31/12/<span class="js-ano">2026</span>.</p>
 
           <div class="pay-info">
             <div class="pay-info__icon">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
             </div>
             <div>
-              <div class="pay-info__title">Anuidade SINCIDEMA 2026</div>
+              <div class="pay-info__title">Anuidade SINCIDEMA <span class="js-ano">2026</span></div>
               <div class="pay-info__text" id="payInfoText">Valor a confirmar — entraremos em contato para concluir o pagamento.</div>
               <div class="pay-info__value" id="payInfoValue" style="display:none;"></div>
             </div>
@@ -718,5 +718,6 @@ button { font-family: inherit; }
 </main>
 
 <script src="assets/js/filiacao.js"></script>
+<script>document.querySelectorAll('.js-ano').forEach(function(el){el.textContent=new Date().getFullYear();});</script>
 </body>
 </html>

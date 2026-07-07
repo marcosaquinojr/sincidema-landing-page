@@ -188,7 +188,7 @@ a { color: inherit; text-decoration: none; }
       <ol>
         <li>Você receberá um <strong>e-mail de confirmação</strong> com o resumo do seu cadastro.</li>
         <li>Em até <strong>2 dias úteis</strong>, nossa equipe enviará o <strong>link de pagamento</strong> conforme a forma escolhida (Pix, cartão à vista ou parcelado).</li>
-        <li>Após a confirmação do pagamento, sua <strong>filiação fica ativa referente à anuidade 2026</strong>.</li>
+        <li>Após a confirmação do pagamento, sua <strong>filiação fica ativa referente à anuidade <span class="js-ano">2026</span></strong>.</li>
       </ol>
     </div>
 
@@ -218,5 +218,6 @@ a { color: inherit; text-decoration: none; }
   } catch (_) {}
 })();
 </script>
+<script>document.querySelectorAll('.js-ano').forEach(function(el){el.textContent=new Date().getFullYear();});</script>
 </body>
 </html>

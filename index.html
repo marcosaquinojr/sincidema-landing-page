@@ -1887,7 +1887,7 @@ section {
       </div>
       <div class="filiese__form-card reveal">
         <img src="https://images.unsplash.com/photo-1588776814546-daab30f310ce?w=600&q=80&auto=format&fit=crop" alt="Equipe odontol&oacute;gica" class="filiese__form-img" loading="lazy">
-        <h3 class="filiese__form-title">Filia&ccedil;&atilde;o 2026</h3>
+        <h3 class="filiese__form-title">Filia&ccedil;&atilde;o <span class="js-ano">2026</span></h3>
         <p class="filiese__form-subtitle">Cadastro em 3 passos. Pague via Pix, cart&atilde;o &agrave; vista ou parcelado em at&eacute; 12x.</p>
         <ul class="filiese__cta-list">
           <li><span class="filiese__cta-bullet">1</span> Preencha seus dados pessoais</li>
@@ -1979,7 +1979,7 @@ section {
       </ul>
     </div>
     <div class="footer__bottom">
-      <span class="footer__copy">&copy; 2026 SINCIDEMA — Todos os direitos reservados. CNPJ 23.614.399/0001-04</span>
+      <span class="footer__copy">&copy; <span class="js-ano">2026</span> SINCIDEMA — Todos os direitos reservados. CNPJ 23.614.399/0001-04</span>
       <span class="footer__address">Rua Sotero dos Reis, 111 — Vila Bessa, S&atilde;o Lu&iacute;s/MA</span>
     </div>
   </div>
@@ -2152,6 +2152,7 @@ document.querySelectorAll('a[href^="#"]').forEach(function(link) {
 })();
 
 </script>
+<script>document.querySelectorAll('.js-ano').forEach(function(el){el.textContent=new Date().getFullYear();});</script>
 
 </body>
 </html>
